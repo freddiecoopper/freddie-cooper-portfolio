@@ -1,25 +1,28 @@
-# Freddie Cooper portfolio: design handoff
+# Freddie Cooper portfolio (VS Code handoff)
 
-Single-page static site (index.html, no build step). Images are in /images.
+Static site, no build step, no dependencies.
 
-## Design system (apply everywhere)
-- Flat light gray page (#D9D9D9), near-black text (#141414), mid-grays (#4a4a4a, #6b6b6b), white hairline dividers.
-- One accent orange (#E8590C, var --o): primary buttons, hover states, small markers, the key word/number in a section. Nothing else is colored.
-- One sans family (Manrope): large light-weight (200) display sizes, regular body, small uppercase labels with wide letter spacing (.22em). Hierarchy through size and spacing, not bold.
-- No gradients (except the image bottom-fade masks), drop shadows, rounded cards or filled icons. Sections are separated by thin white hairlines, never by background color changes.
-- Generous margins and vertical spacing.
+## Run it
+- Open the folder in VS Code and use the **Live Server** extension on `index.html`
+  (or run `npx serve .` / `python3 -m http.server`).
+- Files: `index.html` (markup), `styles.css` (all styling), `script.js` (behaviour), `images/`, `case-study.html`.
 
-## Sections
-- Hero: label row (name, role, location), large faint "Freddie Cooper" text behind, orange ring, full-color render crossfading every 15s (3 renders, CSS-only), orange primary button, descriptor card bottom-left, "Featured" card bottom-right whose text changes in sync with the render.
-- Selected work: five vertical hairline panels, grayscale renders with bottom fade. Hover: render scales ~7% inside its panel, hairline and label turn orange.
-- Skills and tools: plain grid of uppercase text labels separated by hairlines.
-- How I work: four numbered columns, oversized gray numerals, orange only on the hovered step.
-- About: two columns, short text left, image right (placeholder).
-- Contact: large email type (placeholder), one orange button, hairline footer.
+## What is in it
+- **Hero:** Offgrid (product visualization, left) and the A.R.C.S clay model (industrial design, right) meet at a center divider.
+  They ease out from behind the divider on load (CSS animations `revL` / `revR`; the clip is on the fixed `.lw` wrapper, the image moves inside it).
+- **Slider** (`#slider`): moves the divider. Fully right = product visualization only; fully left = industrial design only.
+  In a single mode the center line, the other half of the hero, the other side's work panels and skills list are hidden (`setPos()` in `script.js`).
+- **Selected work:** five hairline panels, grayscale renders with a bottom fade. Hover: ~7% enlarge, orange hairline and label.
+- **Ripple grid:** a canvas behind all page content (`z-index:-1` inside `.p{isolation:isolate}`).
+  A faint grid appears around the cursor and ripples like a boat wake. It fades near text blocks. Toggle bottom-left.
+  Every property is in the `CONFIG` object at the top of `script.js` (cell size, effect area, strength, wave height/speed/width/length, fade time, fluidity, line width, colors, text fade).
+- **Theme:** `--o` (orange accent), `--t` (text) and the page background are set at the bottom of `styles.css` (`.p{...}`).
+  Secondary text colors are derived from `--t` with `color-mix`.
+- Respects `prefers-reduced-motion` (intro animations and ripple grid off).
 
-## Motion
-Slow fade/slide reveals, hairlines drawing in, orange hover states. Respects prefers-reduced-motion (hero shows only the first render).
+## Design rules
+Flat page color, one orange accent, one sans family (Manrope) with light-weight display type and small uppercase labels, hairline dividers,
+no shadows, no rounded cards. Selected-work renders are grayscale; the hero keeps color.
 
-## Notes for the implementer
-- Hero crossfade is pure CSS: each .hs image shares a 45s keyframe and a staggered animation-delay (15s apart). Adding a render means changing the 45s duration, keyframe percentages and delays.
-- Contact email, about image and case-study copy are placeholders to fill in.
+## To fill in
+The case-study copy and work-panel links (`href="#"`).

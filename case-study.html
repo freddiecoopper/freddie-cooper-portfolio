@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study | Freddie Cooper</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap">
+<style>
+
+body{margin:0}
+.p{--m:color-mix(in srgb,var(--t) 72%,transparent);--l:color-mix(in srgb,var(--t) 55%,transparent);--n:color-mix(in srgb,var(--t) 28%,transparent);background:#D9D9D9;color:var(--t);font-family:'Manrope','Helvetica Neue',Arial,sans-serif;position:relative;overflow-x:hidden}
+.p *{box-sizing:border-box}
+.in{max-width:1280px;margin:0 auto;padding:0 40px}
+.lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--l)}
+.d{font-weight:200;letter-spacing:-.02em;line-height:1.02;margin:0}
+.body{font-size:17px;line-height:1.7;color:var(--m);margin:0}
+.back{color:var(--o);text-decoration:none;border-bottom:1px solid var(--o);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.row{display:grid;grid-template-columns:3fr 9fr;gap:40px;padding:64px 0;border-top:1px solid #fff}
+.rv{animation:rise 1.4s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rv{animation:none}}
+@media (max-width:820px){.row{grid-template-columns:1fr}.d{font-size:44px!important}}
+
+.p{--o:#df4d1c;--t:#000000;background:#d6d6d6}
+body{margin:0}
+</style></head>
+<body><div class="p">
+<div class="in" style="padding-top:32px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:baseline"><span class="lbl">Wind Tunnel</span><a class="back" href="index.html">Back to work</a></div>
+<div class="in"><div style="height:1px;background:#fff"></div></div>
+<div class="in rv" style="padding-top:100px;padding-bottom:80px"><h1 class="d" style="font-size:96px">Wind Tunnel</h1></div>
+<div class="in rv"><div style="height:520px;background:#7d8fa3" role="img" aria-label="Full-colour render placeholder"></div></div>
+<div class="in" style="padding-top:80px;padding-bottom:120px">
+<div class="row"><span class="lbl">Problem</span><p class="body" style="max-width:640px">[Describe the brief and what the visual had to communicate.]</p></div>
+<div class="row"><span class="lbl">Approach</span><p class="body" style="max-width:640px">[Describe the workflow, references and key decisions.]</p></div>
+<div class="row"><span class="lbl">Technical detail</span><p class="body" style="max-width:640px">[Smoke simulation setup, velocity colour mapping, render settings.]</p></div>
+<div class="row"><span class="lbl">Output</span><div style="height:380px;background:#b0623a" role="img" aria-label="Full-colour output placeholder"></div></div>
+<div class="row"><span class="lbl">Tools</span><div class="lbl" style="color:var(--t);line-height:2.4">Blender &nbsp;/&nbsp; Python &nbsp;/&nbsp; Mantaflow</div></div>
+</div>
+</div></body></html>

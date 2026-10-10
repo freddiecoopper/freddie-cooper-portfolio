@@ -5,96 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Freddie Cooper</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap">
-<style>
-/* Accent orange is the --o variable on .p. Change it in one place. */
-
-body{margin:0}
-.p{--o:#E8590C;position:relative;background:#D9D9D9;color:#141414;font-family:'Manrope','Helvetica Neue',Arial,sans-serif;font-weight:400;overflow-x:hidden}
-.p *{box-sizing:border-box}
-.in{position:relative;max-width:1280px;margin:0 auto;padding:0 40px}
-.cols{position:absolute;inset:0;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);pointer-events:none;padding:0 40px}
-.cols i{border-left:1px solid rgba(255,255,255,.55)}
-.cols i:last-child{border-right:1px solid rgba(255,255,255,.55)}
-.lbl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#6b6b6b}
-.d{font-weight:200;letter-spacing:-.02em;line-height:1.02;margin:0}
-.hero{position:relative;background:#D9D9D9;color:#141414;overflow:hidden}
-.hbgl,.hbgr{display:none}
-.hin{position:relative;max-width:1280px;margin:0 auto;height:980px;padding:0 40px}
-.hrow{position:absolute;left:40px;right:40px;top:40px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
-.hl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#6b6b6b}
-.ghost{position:absolute;left:50%;transform:translateX(-50%);text-align:center;top:90px;font-size:200px;font-weight:200;letter-spacing:-.03em;line-height:.95;color:#CBCBCB;white-space:nowrap;user-select:none}
-.ring{position:absolute;left:59%;top:180px;width:170px;height:170px;border:14px solid var(--o);border-radius:50%}
-.hstage{position:absolute;left:9%;top:110px;width:82%;aspect-ratio:3/2}.hs{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;animation:hsf 45s linear infinite both}@keyframes hsf{0%{opacity:0}3.33%{opacity:1}33.33%{opacity:1}36.67%{opacity:0}100%{opacity:0}}.hfw{flex:1}.hft{position:relative;height:48px;margin-top:12px}.hft .hfa{position:absolute;inset:0;margin:0;font-size:14px;line-height:1.6;color:#4a4a4a;opacity:0;animation:hsf 45s linear infinite both}
-.hh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:-1px;padding:0;white-space:nowrap}
-.hfoot{position:absolute;left:40px;bottom:56px;display:flex;align-items:flex-end;gap:0}
-.hcard{border-top:1px solid #fff;padding:24px 0 0;width:300px;margin-left:40px}
-.hcard p,.hfeat p{margin:12px 0 0;font-size:14px;line-height:1.6;color:#4a4a4a}
-.hfeat{position:absolute;right:40px;bottom:56px;width:380px;padding:24px 0 0;display:flex;justify-content:space-between;gap:24px;align-items:center;text-decoration:none;color:#141414;border-top:1px solid #fff;transition:border-color .6s}
-.hfeat:hover{border-top-color:var(--o)}
-.harr{flex:none;width:44px;height:44px;border:1px solid #8a8a8a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:color .5s,border-color .5s}
-.hfeat:hover .harr{color:var(--o);border-color:var(--o)}
-@media (max-width:820px){.hin{height:auto;padding:100px 24px 48px;display:flex;flex-direction:column;gap:32px}.hrow{left:24px;right:24px;display:flex;flex-direction:column;gap:8px}.hstage,.hfoot,.hfeat{position:static;width:100%}.hfoot{flex-direction:column;align-items:stretch}.hcard{margin:16px 0 0;width:100%}.ghost,.ring,.hbgr{display:none}}
-.hr{height:1px;background:#fff;transform-origin:left;animation:draw 1.8s ease both}
-.sec{position:relative;padding:140px 0}
-.body{font-size:17px;line-height:1.7;color:#4a4a4a;margin:0}
-.btn{display:inline-block;background:var(--o);color:#141414;padding:18px 36px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border:1px solid var(--o);transition:background .6s,color .6s}
-.btn:hover{background:transparent;color:var(--o)}
-.panel{border-left:1px solid #fff;padding:0 20px 0 20px;display:flex;flex-direction:column;justify-content:space-between;height:520px;transition:border-color .6s;text-decoration:none;color:inherit}
-.panel:hover{border-left-color:var(--o)}
-.panel:hover .t{color:var(--o)}
-.wp{position:relative;display:block;border-left:1px solid #fff;text-decoration:none;transition:border-color .6s}.ph{display:block;position:relative;overflow:hidden;aspect-ratio:160/502}.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;mix-blend-mode:multiply;transition:transform 1.4s cubic-bezier(.2,.6,.2,1);transform-origin:50% 60%}.fd{-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}.wl{display:block;padding:20px 0 0 16px;transition:color .6s}.wp:hover{border-left-color:var(--o)}.wp:hover .ph img{transform:scale(1.07)}.wp:hover .wl{color:var(--o)}
-.img{background:#8f8f8f;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent);filter:grayscale(1)}
-.cell{padding:28px 20px;border-left:1px solid #fff;border-bottom:1px solid #fff;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:#4a4a4a;transition:color .5s}
-.cell:hover{color:var(--o)}
-.step{border-left:1px solid #fff;padding:0 24px 40px;transition:border-color .6s}
-.step b{display:block;font-weight:200;font-size:120px;line-height:1;color:#a8a8a8;letter-spacing:-.04em;transition:color .6s;margin-bottom:56px}
-.step:hover{border-left-color:var(--o)}
-.step:hover b{color:var(--o)}
-.lnk{color:#141414;text-decoration:none;border-bottom:1px solid var(--o)}
-.lnk:hover{color:var(--o)}
-.rv{animation:rise 1.4s ease both}
-@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
-@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@supports (animation-timeline:view()){.sec .rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 45%}}
-@media (prefers-reduced-motion:reduce){.hs,.hfa{animation:none!important}.hs:first-child,.hfa:first-child{opacity:1}.rv,.hr,.sec .rv{animation:none}.btn,.panel,.step,.step b,.cell,.ph img{transition:none}.wp:hover .ph img{transform:none}}
-@media (max-width:820px){.g2,.g4,.g3{grid-template-columns:1fr!important}.d{font-size:44px!important}.panel{height:360px}.cols{display:none}}
-
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="p" style="--o:#E8590C">
+<div class="p">
 
-<section class="hero">
-<div class="hbgl"></div><div class="hbgr"></div>
-<div class="hin">
-<div class="g3 rv hrow"><span class="hl">Freddie Cooper</span><span class="hl">3D Product Designer</span><span class="hl" style="text-align:right">Abuja, Nigeria</span></div>
-<div class="ghost" aria-hidden="true">Freddie<br>Cooper</div>
-<div class="ring" aria-hidden="true"></div>
-<div class="hstage rv"><img class="hs" src="images/hero-arcs.png" alt="A.R.C.S tracked inspection robot render" style="animation-delay:-1.5s"><img class="hs" src="images/hero-amg.png" alt="AMG steering wheel render" style="animation-delay:13.5s" aria-hidden="true"><img class="hs" src="images/hero-keyboard.png" alt="Mechanical keyboard render" style="animation-delay:28.5s" aria-hidden="true"></div>
-<h1 class="d rv hh">Product visuals that <span style="color:var(--o)">move</span>, simulate and sell.</h1>
-<div class="hfoot rv"><a class="btn" href="#contact">Start a project</a><div class="hcard"><div class="hl">Engineering-led</div><p>Photoreal visualization, animation and physics-driven Blender work for DTC and wellness brands.</p></div></div>
-<a class="hfeat rv" href="#work"><div class="hfw"><div class="hl">Featured</div><div class="hft"><p class="hfa" style="animation-delay:-1.5s">A.R.C.S, an autonomous tank-cleaning robot</p><p class="hfa" style="animation-delay:13.5s">AMG steering wheel, photoreal interior visualization</p><p class="hfa" style="animation-delay:28.5s">Mechanical keyboard, product design and visualization</p></div></div><span class="harr" aria-hidden="true">→</span></a>
+<div class="dual"><div class="vline" aria-hidden="true" id="vline"></div>
+<section class="hero"><div class="hin">
+<div class="g3 rv hrow"><span class="hl">Freddie Cooper &middot; 3D Product Designer</span><span class="hl" style="text-align:right">Abuja, Nigeria</span></div>
+<div class="ghost" aria-hidden="true">Freddie<br><span class="gacc">Cooper</span></div>
+<h1 class="hh">Freddie Cooper: product visualization and industrial design</h1>
+<div class="hone">
+<div class="slider"><div class="lw" id="clipL" style="clip-path:inset(0 50% 0 0)"><img class="lyl" src="images/hero-left-offgrid.png" alt="Offgrid Recovery Max render on moss"></div>
+<div class="lw" id="clipR" style="clip-path:inset(0 0 0 50%)"><img class="lyr" src="images/hero-right-arcs-clay.png" alt="A.R.C.S clay model"></div>
+<div class="shandle" id="handle" style="left:50%"></div></div>
+<input class="srange" type="range" min="0" max="100" step="1" id="slider" value="50" aria-label="Move the divider: product visualization on the left, industrial design on the right">
+<div class="hl shint">Drag to explore. Slide fully to one side to focus the site.</div>
 </div>
-</section>
-
+<div class="hc hcl" id="hcl" style="width:50%"><div class="hl hhd rv">01 / Product visualization</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl">Selected work</div><p class="hcp">Photoreal visualization, animation and physics simulation</p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
+<div class="hc hcr" id="hcr" style="width:50%"><div class="hl hhd rv">02 / Industrial design</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl">Selected work</div><p class="hcp">Mechanical modeling and engineering-led product design</p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
+<a class="btn hbtn" href="#contact">Start a project</a>
+</div></section>
 <div class="in"><div class="hr"></div></div>
 <div class="sec" id="work"><div class="in">
-<div class="rv" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:80px"><h2 class="d" style="font-size:72px">Selected work</h2><span class="lbl">05 projects</span></div>
-<div class="g5 rv" style="display:grid;grid-template-columns:repeat(5,1fr);gap:0">
-<a class="wp" href="#"><span class="ph"><img src="images/work-1-keyboard.png" alt="Keyboard render"></span><span class="lbl wl">01 Keyboard</span></a>
-<a class="wp" href="#"><span class="ph fd"><img src="images/work-2-offgrid.png" alt="Offgrid Recovery Max render"></span><span class="lbl wl">02 Offgrid Recovery Max</span></a>
-<a class="wp" href="#"><span class="ph fd"><img src="images/work-3-amg.png" alt="AMG Steering render"></span><span class="lbl wl">03 AMG Steering</span></a>
-<a class="wp" href="#"><span class="ph fd"><img src="images/work-4-nord.png" alt="Nord Gear Selector render"></span><span class="lbl wl">04 Nord Gear Selector</span></a>
-<a class="wp" href="#"><span class="ph fd"><img src="images/work-5-arcs.png" alt="A.R.C.S render"></span><span class="lbl wl">05 A.R.C.S</span></a>
+<div class="rv" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:80px"><h2 class="d" style="font-size:72px">Selected work</h2><span class="lbl" id="count">05 projects</span></div>
+<div class="g5 rv" id="g5" style="display:flex;justify-content:flex-start;gap:0">
+<a class="wp" href="#" data-zone="id"><span class="ph"><img src="images/work-1-keyboard.png" alt="Keyboard render"></span><span class="lbl wl">01 Keyboard</span></a>
+<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work-2-offgrid.png" alt="Offgrid Recovery Max render"></span><span class="lbl wl">02 Offgrid Recovery Max</span></a>
+<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work-3-amg.png" alt="AMG Steering render"></span><span class="lbl wl">03 AMG Steering</span></a>
+<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work-4-nord.png" alt="Nord Gear Selector render"></span><span class="lbl wl">04 Nord Gear Selector</span></a>
+<a class="wp" href="#" data-zone="id"><span class="ph fd"><img src="images/work-5-arcs.png" alt="A.R.C.S render"></span><span class="lbl wl">05 A.R.C.S</span></a>
 </div></div></div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec"><div class="in">
 <div class="rv" style="margin-bottom:80px"><h2 class="d" style="font-size:72px">Skills and tools</h2></div>
-<div class="g4 rv" style="display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #fff">
-<div class="cell">Blender</div><div class="cell">Fusion 360</div><div class="cell">Python scripting</div><div class="cell">Photoreal rendering</div>
-<div class="cell">Material creation</div><div class="cell">Physics simulation</div><div class="cell">Product animation</div><div class="cell">Mechanical modeling</div>
-</div></div></div>
+<div class="dg rv" id="dg" style="grid-template-columns:1fr 1fr"><div class="dgl" id="dgl" style="padding-right:40px"><div class="hl sech">01 / Product visualization</div><div class="sk"><div class="cell">Blender</div><div class="cell">Photoreal rendering</div><div class="cell">Material creation</div><div class="cell">Product animation</div><div class="cell">Physics simulation</div><div class="cell">Python scripting</div></div></div>
+<div class="dgr" id="dgr" style="padding-left:40px"><div class="hl sech">02 / Industrial design</div><div class="sk"><div class="cell">Fusion 360</div><div class="cell">Mechanical modeling</div><div class="cell">Technical drawing</div><div class="cell">Blender</div></div></div></div></div></div>
+</div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec"><div class="in">
@@ -111,17 +59,20 @@ body{margin:0}
 <div class="g2 rv" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
 <div><h2 class="d" style="font-size:72px;margin-bottom:56px">About</h2>
 <p class="body" style="max-width:480px">I'm Freddie Cooper, a 3D product designer based in Abuja. My background is petroleum engineering, which is why I care about how things actually work before I make them look good. I build in Blender, from product visuals to simulations and custom tools.</p></div>
-<div class="img" style="height:480px" role="img" aria-label="Grayscale portrait or render placeholder"></div>
+<img class="abtimg" src="images/about-portrait.jpg" alt="Portrait of Freddie Cooper">
 </div></div></div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec" id="contact"><div class="in">
 <div class="rv"><span class="lbl">Contact</span>
-<h2 class="d" style="font-size:88px;margin:40px 0 64px;word-break:break-word">[YOUR EMAIL]</h2>
-<a class="btn" href="mailto:">Send an email</a></div>
+<h2 class="d" style="font-size:88px;margin:40px 0 64px;word-break:break-word">favour02fred@gmail.com</h2>
+<a class="btn" href="mailto:favour02fred@gmail.com">Send an email</a></div>
 </div></div>
 <div class="in"><div class="hr"></div>
-<div style="display:flex;justify-content:space-between;padding:32px 0 48px"><a class="lbl lnk" href="#">LinkedIn</a><span class="lbl">Freddie Cooper</span></div></div>
+<div style="display:flex;justify-content:space-between;padding:32px 0 48px"><div class="flinks"><a class="lbl lnk" href="https://www.linkedin.com/in/freddiecooper/" target="_blank" rel="noopener">LinkedIn</a><a class="lbl lnk" href="https://x.com/CooperFreddie1" target="_blank" rel="noopener">X</a></div><span class="lbl">Freddie Cooper</span></div></div>
+<canvas class="ripples" id="ripples" aria-hidden="true"></canvas>
+<button class="rtog" id="rtog" type="button">Ripples <span id="rlabel">on</span></button>
 </div>
+<script src="script.js"></script>
 </body>
 </html>
