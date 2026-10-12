@@ -16,7 +16,7 @@ const CONFIG = {
   "gridTextRange": 10,
   "gridColor": "#7b7b7b",
   "gridCrestColor": "#df4d1c",
-  "darkGridColor": "#ffffff"
+  "darkGridColor": "#b8b8b8"
 };
 const $ = (id) => document.getElementById(id);
 const state = { ripples: true };
@@ -71,6 +71,19 @@ function setPos(pos) {
 el.slider.addEventListener('input', function (e) { setPos(Number(e.target.value)); });
 setPos(Number(el.slider.value));
 
+/* ---- Contact: open an email draft or the configured booking page. ---- */
+$('callBtn').href = SITE.contact.calendly;
+$('mailBtn').addEventListener('click', function () { var open = $('cmp').hidden; $('cmp').hidden = !open; $('mailBtn').setAttribute('aria-expanded', open); $('mMsg').textContent = ''; });
+$('mCancel').addEventListener('click', function () { $('cmp').hidden = true; $('mailBtn').setAttribute('aria-expanded', false); });
+function mailReady() { $('mSend').disabled = !($('mSubject').value.trim() && $('mBody').value.trim()); }
+$('mSubject').addEventListener('input', mailReady); $('mBody').addEventListener('input', mailReady);
+$('mSend').addEventListener('click', function () {
+  var subject = $('mSubject').value.trim(), message = $('mBody').value.trim();
+  if (!subject || !message) return;
+  $('mMsg').textContent = 'Your email app should open with your message ready to send. If nothing opens, use the email link in the footer.';
+  window.location.href = 'mailto:' + SITE.contact.to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(message);
+});
+
 /* ---- Cursor ripple grid ---- */
 function initRipples(el) {
   const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -91,7 +104,7 @@ function initRipples(el) {
   };
   window.addEventListener('pointermove', rp.onMove, { passive: true });
   const P = (k, d) => { const v = CONFIG[k]; return (v == null || isNaN(Number(v))) ? d : Number(v); };
-  const SEL = 'h1:not(.hh),h2,p,.lbl,.hl,.sbtn,.cell,.rtog,.btn,.hcap,.shint,.lnk';
+  const SEL = 'h1:not(.hh),h2,p,.lbl,.hl,.sbtn,.sbtn2,.cell,.rtog,.btn,.hcap,.shint,.lnk,.cmp,.cin';
   const frame = (now) => {
     rp.raf = requestAnimationFrame(frame);
     const dt = Math.min(0.05, rp.prev ? (now - rp.prev) / 1000 : 0.016); rp.prev = now;

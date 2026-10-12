@@ -1,9 +1,6 @@
 /* ===== Start a project: six step request form =====================================
-   PLACEHOLDER: connect the real service here.
-   The form POSTs its answers as JSON to ENDPOINT. Replace it with your own handler
-   (a serverless function, Formspree, Resend, and so on). That handler must send the
-   answers to RECIPIENT. Until a real endpoint exists the request fails, and the page
-   falls back to a mailto link with the answers filled into the body. */
+  Posts answers to the Vercel endpoint in api/start-project.js. If delivery and
+  storage are unavailable, the visitor can still send a prefilled email draft. */
 var ENDPOINT = '/api/start-project';
 var RECIPIENT = 'favour02fred@gmail.com';
 

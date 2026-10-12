@@ -16,7 +16,8 @@ const CONFIG = {
   "gridCrest": 0,
   "gridTextFade": 1,
   "gridTextRange": 10,
-  "gridColor": "#000000",
+  "gridColor": "#7b7b7b",
+  "darkGridColor": "#b8b8b8",
   "gridCrestColor": "#df4d1c"
 };
 
@@ -164,7 +165,7 @@ function initRipples(el) {
       if (i + 1 < cols) seg(a, a + 1); if (j + 1 < rows) seg(a, a + cols);
       if (i > 0 && !mk[a - 1]) seg(a, a - 1); if (j > 0 && !mk[a - cols]) seg(a, a - cols);
     }
-    const inkCol = CONFIG.gridColor || rp.ink, crestCol = CONFIG.gridCrestColor || rp.acc;
+    const inkCol = ((document.querySelector('.p').classList.contains('dark') ? CONFIG.darkGridColor : CONFIG.gridColor) || rp.ink), crestCol = CONFIG.gridCrestColor || rp.acc;
     ctx.lineWidth = lw; ctx.lineCap = 'round';
     for (let b = 0; b < B; b++) {
       const q = buckets[b]; if (!q.length) continue;

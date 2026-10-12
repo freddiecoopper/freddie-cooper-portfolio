@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Freddie Cooper</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
 <div class="p">
@@ -16,25 +17,25 @@
 <div class="ghost" aria-hidden="true">Freddie<br><span class="gacc">Cooper</span></div>
 <h1 class="hh">Freddie Cooper: product visualization and industrial design</h1>
 <div class="hone">
-<div class="slider"><div class="lw" id="clipL" style="clip-path:inset(0 50% 0 0)"><img class="lyl" src="images/hero-left-offgrid.png" alt="Offgrid Recovery Max render on moss"></div>
-<div class="lw" id="clipR" style="clip-path:inset(0 0 0 50%)"><img class="lyr" src="images/hero-right-arcs-clay.png" alt="A.R.C.S clay model"></div>
+<div class="slider"><div class="lw" id="clipL" style="clip-path:inset(0 50% 0 0)"><div class="lyl" id="stackL"></div></div>
+<div class="lw" id="clipR" style="clip-path:inset(0 0 0 50%)"><div class="lyr" id="stackR"></div></div>
 <div class="shandle" id="handle" style="left:50%"></div></div>
 <input class="srange" type="range" min="0" max="100" step="1" id="slider" value="50" aria-label="Move the divider: product visualization on the left, industrial design on the right">
 <div class="hl shint">Drag to explore. Slide fully to one side to focus the site.</div>
 </div>
-<div class="hc hcl" id="hcl" style="width:50%"><div class="hl hhd rv">01 / Product visualization</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl">Selected work</div><p class="hcp">Photoreal visualization, animation and physics simulation</p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
-<div class="hc hcr" id="hcr" style="width:50%"><div class="hl hhd rv">02 / Industrial design</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl">Selected work</div><p class="hcp">Mechanical modeling and engineering-led product design</p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
+<div class="hc hcl" id="hcl" style="width:50%"><div class="hl hhd rv">01 / Product visualization</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl">Featured work</div><p class="hcp"><span id="capL"></span></p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
+<div class="hc hcr" id="hcr" style="width:50%"><div class="hl hhd rv">02 / Industrial design</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl">Featured work</div><p class="hcp"><span id="capR"></span></p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
 <a class="btn hbtn" href="start-a-project.html">Start a project</a>
 </div></section>
 <div class="in"><div class="hr"></div></div>
 <div class="sec" id="work"><div class="in">
 <div class="rv" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:80px"><h2 class="d" style="font-size:72px">Selected work</h2><a class="lbl lnk" href="projects.html">All projects</a><span class="lbl" id="count">05 projects</span></div>
 <div class="g5 rv" id="g5" style="display:flex;justify-content:flex-start;gap:0">
-<a class="wp" href="#" data-zone="id"><span class="ph"><img src="images/work-1-keyboard.png" alt="Keyboard render"></span><span class="lbl wl">01 Keyboard</span></a>
-<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work-2-offgrid.png" alt="Offgrid Recovery Max render"></span><span class="lbl wl">02 Offgrid Recovery Max</span></a>
-<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work-3-amg.png" alt="AMG Steering render"></span><span class="lbl wl">03 AMG Steering</span></a>
-<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work-4-nord.png" alt="Nord Gear Selector render"></span><span class="lbl wl">04 Nord Gear Selector</span></a>
-<a class="wp" href="case-study.html" data-zone="id"><span class="ph fd"><img src="images/work-5-arcs.png" alt="A.R.C.S render"></span><span class="lbl wl">05 A.R.C.S</span></a>
+<a class="wp" href="#" data-zone="id"><span class="ph"><img src="images/work/keyboard.png" alt="Keyboard render"></span><span class="lbl wl">01 Keyboard</span></a>
+<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work/offgrid.png" alt="Offgrid Recovery Max render"></span><span class="lbl wl">02 Offgrid Recovery Max</span></a>
+<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work/amg.png" alt="AMG Steering render"></span><span class="lbl wl">03 AMG Steering</span></a>
+<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work/nord.png" alt="Nord Gear Selector render"></span><span class="lbl wl">04 Nord Gear Selector</span></a>
+<a class="wp" href="case-study.html" data-zone="id"><span class="ph fd"><img src="images/work/arcs.png" alt="A.R.C.S render"></span><span class="lbl wl">05 A.R.C.S</span></a>
 </div></div></div>
 
 <div class="in"><div class="hr"></div></div>
@@ -58,23 +59,33 @@
 <div class="sec"><div class="in">
 <div class="g2 rv" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
 <div><h2 class="d" style="font-size:72px;margin-bottom:56px">About</h2>
-<p class="body" style="max-width:480px">I'm Freddie Cooper, a 3D product designer based in Abuja. My background is petroleum engineering, which is why I care about how things actually work before I make them look good. I build in Blender, from product visuals to simulations and custom tools.</p></div>
-<img class="abtimg" src="images/about-portrait.jpg" alt="Portrait of Freddie Cooper">
+<p class="body" style="max-width:480px"><span id="about"></span></p></div>
+<img class="abtimg" src="images/about/portrait.jpg" alt="Portrait of Freddie Cooper">
 </div></div></div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec" id="contact"><div class="in">
 <div class="rv"><span class="lbl">Contact</span>
-<h2 class="d" style="font-size:88px;margin:40px 0 64px;word-break:break-word">favour02fred@gmail.com</h2>
-<a class="btn" href="mailto:favour02fred@gmail.com">Send an email</a></div>
+<h2 class="d" style="font-size:clamp(44px,6vw,88px);margin:40px 0 56px">Let's talk.</h2>
+<div class="ctas"><button class="btn" id="mailBtn" type="button" aria-expanded="false">Send an email</button><a class="btn o2" id="callBtn" href="#" target="_blank" rel="noopener">Book a call</a></div>
+<div class="cmp" id="cmp" hidden>
+<label class="cf"><span class="lbl">Subject</span><input class="cin" id="mSubject" type="text" autocomplete="off" placeholder="What is this about?"></label>
+<label class="cf"><span class="lbl">Message</span><textarea class="cin" id="mBody" placeholder="Write your message here"></textarea></label>
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center"><button class="btn" id="mSend" type="button" disabled>Send</button><button class="sbtn2" id="mCancel" type="button">Cancel</button></div>
+<p class="cnote" id="mMsg" role="status" aria-live="polite"></p>
+</div>
+</div>
 </div></div>
+<div class="in"><div class="hr"></div></div>
+<div class="in"><div class="cta2"><h2 class="d" style="font-size:clamp(32px,4.4vw,64px)">Have something to make?</h2><a class="btn" href="start-a-project.html">Start a project</a></div></div>
 <div class="in"><div class="hr"></div>
-<div style="display:flex;justify-content:space-between;padding:32px 0 48px"><div class="flinks"><a class="lbl lnk" href="https://www.linkedin.com/in/freddiecooper/" target="_blank" rel="noopener">LinkedIn</a><a class="lbl lnk" href="https://x.com/CooperFreddie1" target="_blank" rel="noopener">X</a></div><span class="lbl">Freddie Cooper</span></div></div>
+<div style="display:flex;justify-content:space-between;padding:32px 0 48px"><div class="flinks"><a class="lbl lnk" href="mailto:favour02fred@gmail.com" style="text-transform:none;letter-spacing:.04em;font-size:13px">favour02fred@gmail.com</a><a class="lbl lnk" href="https://www.linkedin.com/in/freddiecooper/" target="_blank" rel="noopener">LinkedIn</a><a class="lbl lnk" href="https://x.com/CooperFreddie1" target="_blank" rel="noopener">X</a></div><span class="lbl">Freddie Cooper</span></div></div>
 <canvas class="ripples" id="ripples" aria-hidden="true"></canvas>
 <button class="rtog" id="rtog" type="button">Ripples <span id="rlabel">on</span></button>
+<button class="totop" id="totop" type="button" aria-label="Back to top">&uarr;</button>
 <button class="ttog" id="ttog" type="button" aria-pressed="false">Dark mode</button>
 </div>
-<script src="script.js"></script>
-<script src="js/theme.js"></script>
+<script src="js/content.js"></script><script src="js/theme.js"></script><script src="js/home.js"></script>
+<script src="js/track.js" defer></script>
 </body>
 </html>

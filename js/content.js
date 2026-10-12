@@ -100,6 +100,7 @@ window.SITE = {
   }
 ]
   },
+  contact: { to: 'favour02fred@gmail.com', calendly: 'https://calendly.com/freddiecooper/discovery-call' },
   about: "I'm Freddie Cooper, a 3D product designer based in Abuja. My background is petroleum engineering, which is why I care about how things actually work before I make them look good. I build in Blender, from product visuals to simulations and custom tools.",
   slides: [
   {
