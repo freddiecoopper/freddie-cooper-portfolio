@@ -1,0 +1,7 @@
+/* Theme. Change the colors here. */
+.p{--o:#df4d1c;--t:#000000;--pw:2200px;--line:#ffffff;background:#d6d6d6}
+.p.dark{--t:#f2f2f2;--line:#3a3a3a;background:#1c1c1c}
+body{margin:0}
+.ttog{position:fixed;right:24px;bottom:20px;z-index:6;background:none;border:0;padding:8px 0;font-family:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--l);cursor:pointer;transition:color .5s}
+.ttog:hover{color:var(--o)}.ttog:focus-visible{outline:2px solid var(--o);outline-offset:4px}
+.p.dark .ph img{mix-blend-mode:normal}
