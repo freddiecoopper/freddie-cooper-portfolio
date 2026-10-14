@@ -2,14 +2,31 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Freddie Cooper</title>
+<meta name="description" content="Freddie Cooper is a 3D product designer in Abuja, Nigeria. Photoreal product visualization, animation and simulation, and engineering-led industrial design, built in Blender.">
+<!-- Share previews. Replace YOUR-DOMAIN with the live address once the site is deployed. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Freddie Cooper">
+<meta property="og:title" content="Freddie Cooper, 3D Product Designer">
+<meta property="og:description" content="Freddie Cooper is a 3D product designer in Abuja, Nigeria. Photoreal product visualization, animation and simulation, and engineering-led industrial design, built in Blender.">
+<meta property="og:url" content="https://YOUR-DOMAIN/">
+<meta property="og:image" content="https://YOUR-DOMAIN/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A supplement jar on moss beside a robot in clay, split down the middle">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#d6d6d6">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap">
 <link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
 <div class="p">
+
 
 <div class="dual"><div class="vline" aria-hidden="true" id="vline"></div>
 <section class="hero"><div class="hin">
@@ -28,45 +45,36 @@
 <a class="btn hbtn" href="start-a-project.html">Start a project</a>
 </div></section>
 <div class="in"><div class="hr"></div></div>
+<div class="sec" id="now"><div class="in rv"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;margin-bottom:28px"><span class="lbl"><span class="live" aria-hidden="true"></span>Now working on</span><span class="lbl">Updated live</span></div><div id="nowList"></div></div></div>
+<div class="in"><div class="hr"></div></div>
 <div class="sec" id="work"><div class="in">
-<div class="rv" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:80px"><h2 class="d" style="font-size:72px">Selected work</h2><a class="lbl lnk" href="projects.html">All projects</a><span class="lbl" id="count">05 projects</span></div>
-<div class="g5 rv" id="g5" style="display:flex;justify-content:flex-start;gap:0">
-<a class="wp" href="#" data-zone="id"><span class="ph"><img src="images/work/keyboard.png" alt="Keyboard render"></span><span class="lbl wl">01 Keyboard</span></a>
-<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work/offgrid.png" alt="Offgrid Recovery Max render"></span><span class="lbl wl">02 Offgrid Recovery Max</span></a>
-<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work/amg.png" alt="AMG Steering render"></span><span class="lbl wl">03 AMG Steering</span></a>
-<a class="wp" href="#" data-zone="viz"><span class="ph fd"><img src="images/work/nord.png" alt="Nord Gear Selector render"></span><span class="lbl wl">04 Nord Gear Selector</span></a>
-<a class="wp" href="case-study.html" data-zone="id"><span class="ph fd"><img src="images/work/arcs.png" alt="A.R.C.S render"></span><span class="lbl wl">05 A.R.C.S</span></a>
-</div></div></div>
+<div class="rv" style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:80px"><h2 class="d" style="font-size:72px">Featured work</h2><span style="display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline"><span class="lbl" id="count">05 projects</span><a class="lbl lnk" href="projects.html">All projects</a></span></div>
+<div class="g5 rv" id="g5" style="display:flex;justify-content:flex-start;gap:0"></div></div></div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec"><div class="in">
 <div class="rv" style="margin-bottom:80px"><h2 class="d" style="font-size:72px">Skills and tools</h2></div>
-<div class="dg rv" id="dg" style="grid-template-columns:1fr 1fr"><div class="dgl" id="dgl" style="padding-right:40px"><div class="hl sech">01 / Product visualization</div><div class="sk"><div class="cell">Blender</div><div class="cell">Photoreal rendering</div><div class="cell">Material creation</div><div class="cell">Product animation</div><div class="cell">Physics simulation</div><div class="cell">Python scripting</div></div></div>
-<div class="dgr" id="dgr" style="padding-left:40px"><div class="hl sech">02 / Industrial design</div><div class="sk"><div class="cell">Fusion 360</div><div class="cell">Mechanical modeling</div><div class="cell">Technical drawing</div><div class="cell">Blender</div></div></div></div></div></div>
+<div class="dg rv" id="dg" style="grid-template-columns:1fr 1fr"><div class="dgl" id="dgl" style="padding-right:40px"><div class="hl sech">01 / Product visualization</div><div class="sk" id="skL"></div></div>
+<div class="dgr" id="dgr" style="padding-left:40px"><div class="hl sech">02 / Industrial design</div><div class="sk" id="skR"></div></div></div></div></div>
 </div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec"><div class="in">
 <div class="rv" style="margin-bottom:80px"><h2 class="d" style="font-size:72px">How I work</h2></div>
-<div class="g4 rv" style="display:grid;grid-template-columns:repeat(4,1fr)">
-<div class="step"><b>01</b><div class="lbl" style="margin-bottom:12px">Brief</div><p class="body" style="font-size:15px">Goals, references and the one thing the visual must prove.</p></div>
-<div class="step"><b>02</b><div class="lbl" style="margin-bottom:12px">Model</div><p class="body" style="font-size:15px">Accurate geometry built from real dimensions and materials.</p></div>
-<div class="step"><b>03</b><div class="lbl" style="margin-bottom:12px">Animate</div><p class="body" style="font-size:15px">Motion and simulation tested early, refined in review.</p></div>
-<div class="step"><b>04</b><div class="lbl" style="margin-bottom:12px">Deliver</div><p class="body" style="font-size:15px">Final renders, video and source files, ready to use.</p></div>
-</div></div></div>
+<div class="g4 rv" id="steps" style="display:grid;grid-template-columns:repeat(4,1fr)"></div></div></div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec"><div class="in">
 <div class="g2 rv" style="display:grid;grid-template-columns:1fr 1fr;gap:80px">
 <div><h2 class="d" style="font-size:72px;margin-bottom:56px">About</h2>
 <p class="body" style="max-width:480px"><span id="about"></span></p></div>
-<img class="abtimg" src="images/about/portrait.jpg" alt="Portrait of Freddie Cooper">
+<img class="abtimg" id="portrait" src="images/about/portrait.jpg" alt="Portrait of Freddie Cooper">
 </div></div></div>
 
 <div class="in"><div class="hr"></div></div>
 <div class="sec" id="contact"><div class="in">
 <div class="rv"><span class="lbl">Contact</span>
-<h2 class="d" style="font-size:clamp(44px,6vw,88px);margin:40px 0 56px">Let's talk.</h2>
+<h2 class="d" style="font-size:clamp(44px,6vw,88px);margin:40px 0 56px">Let us talk.</h2>
 <div class="ctas"><button class="btn" id="mailBtn" type="button" aria-expanded="false">Send an email</button><a class="btn o2" id="callBtn" href="#" target="_blank" rel="noopener">Book a call</a></div>
 <div class="cmp" id="cmp" hidden>
 <label class="cf"><span class="lbl">Subject</span><input class="cin" id="mSubject" type="text" autocomplete="off" placeholder="What is this about?"></label>
@@ -79,13 +87,12 @@
 <div class="in"><div class="hr"></div></div>
 <div class="in"><div class="cta2"><h2 class="d" style="font-size:clamp(32px,4.4vw,64px)">Have something to make?</h2><a class="btn" href="start-a-project.html">Start a project</a></div></div>
 <div class="in"><div class="hr"></div>
-<div style="display:flex;justify-content:space-between;padding:32px 0 48px"><div class="flinks"><a class="lbl lnk" href="mailto:favour02fred@gmail.com" style="text-transform:none;letter-spacing:.04em;font-size:13px">favour02fred@gmail.com</a><a class="lbl lnk" href="https://www.linkedin.com/in/freddiecooper/" target="_blank" rel="noopener">LinkedIn</a><a class="lbl lnk" href="https://x.com/CooperFreddie1" target="_blank" rel="noopener">X</a></div><span class="lbl">Freddie Cooper</span></div></div>
+<div style="display:flex;justify-content:space-between;padding:32px 0 48px"><div class="flinks"><a class="lbl lnk" href="mailto:favour02fred@gmail.com" style="text-transform:none;letter-spacing:.04em;font-size:13px">favour02fred@gmail.com</a><a class="lbl lnk" href="https://www.linkedin.com/in/freddiecooper/" target="_blank" rel="noopener">LinkedIn</a><a class="lbl lnk" href="https://x.com/CooperFreddie1" target="_blank" rel="noopener">X</a><a class="lbl lnk" href="wallpapers.html">Wallpapers</a></div><span class="lbl">Freddie Cooper</span></div></div>
 <canvas class="ripples" id="ripples" aria-hidden="true"></canvas>
-<button class="rtog" id="rtog" type="button">Ripples <span id="rlabel">on</span></button>
-<button class="totop" id="totop" type="button" aria-label="Back to top">&uarr;</button>
-<button class="ttog" id="ttog" type="button" aria-pressed="false">Dark mode</button>
+<div class="ctrls"><button class="rtog" id="rtog" type="button">Ripples <span id="rlabel">on</span></button><button class="ttog" id="ttog" type="button" aria-pressed="false">Dark mode</button><button class="totop" id="totop" type="button" aria-label="Back to top">&uarr;</button></div>
+
 </div>
-<script src="js/content.js"></script><script src="js/theme.js"></script><script src="js/home.js"></script>
+<script src="js/content.js"></script><script src="js/theme.js"></script><script src="js/live.js"></script><script src="js/home.js"></script>
 <script src="js/track.js" defer></script>
 </body>
 </html>

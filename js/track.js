@@ -1,4 +1,6 @@
-/* Privacy-conscious page-view tracker. Skips local development and Do Not Track. */
+/* Page view tracker. Add to every public page: <script src="js/track.js" defer></script>
+   It sends the page path, the referring site and the screen width to /api/track.
+   It skips localhost, "Do Not Track" visitors, and your own browser once you have opened the dashboard. */
 (function () {
   try {
     if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) return;

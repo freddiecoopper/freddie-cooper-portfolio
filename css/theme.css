@@ -1,13 +1,35 @@
 /* Theme. Change the colors here. */
-html{--page-bg:#d6d6d6;background:var(--page-bg);color-scheme:light}
-html.dark{--page-bg:#1c1c1c;color-scheme:dark}
-html,body{background:var(--page-bg)}
-body{margin:0;min-height:100vh}
-.p{--o:#df4d1c;--t:#000000;--pw:2200px;--line:#ffffff;background:var(--page-bg);color:var(--t)}
-.p.dark{--t:#f2f2f2;--line:#3a3a3a;background:var(--page-bg)}
+.p{--o:#df4d1c;--t:#000000;--pw:2200px;--line:#ffffff;--bg:#d6d6d6;background:var(--bg)}
+.p.dark{--t:#f2f2f2;--line:#3a3a3a;--bg:#1c1c1c}
+body{margin:0}
 .ttog{position:fixed;right:84px;bottom:28px;z-index:6;background:none;border:0;padding:8px 0;font-family:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--l);cursor:pointer;transition:color .5s}
 .ttog:hover{color:var(--o)}.ttog:focus-visible{outline:2px solid var(--o);outline-offset:4px}
-.totop{position:fixed;right:24px;bottom:16px;z-index:6;width:44px;height:44px;background:none;border:1px solid var(--line);color:var(--t);font-family:inherit;font-size:20px;line-height:1;cursor:pointer;transition:border-color .5s,color .5s}
-.totop:hover{border-color:var(--line);color:var(--o)}.totop:focus-visible{outline:2px solid var(--o);outline-offset:4px}
 .p.dark .ph img{mix-blend-mode:normal}
-.p.dark .abtimg,.p.dark .fig,.p.dark .mc img,.p.dark .mc video{filter:brightness(.88)}
+.totop{position:fixed;right:24px;bottom:16px;z-index:6;width:44px;height:44px;background:none;border:1px solid var(--line);color:var(--t);font-family:inherit;font-size:20px;line-height:1;cursor:pointer;transition:border-color .5s,color .5s}
+.totop:hover{border-color:var(--o);color:var(--o)}.totop:focus-visible{outline:2px solid var(--o);outline-offset:4px}
+
+/* Page controls: Ripples, Dark mode and Back to top sit together in one bar at the bottom right,
+   on the page color, so they never print on top of the text underneath. */
+.ctrls{position:fixed;right:16px;bottom:16px;z-index:6;display:flex;align-items:stretch;background:var(--bg);border:1px solid var(--line);transition:background .5s,border-color .5s}
+.ctrls .rtog,.ctrls .ttog,.ctrls .totop{position:static;height:44px;margin:0;padding:0 16px;background:none;border:0;display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.ctrls .rtog,.ctrls .ttog{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--l)}
+.ctrls .rtog span{margin-left:.6em}
+.ctrls .totop{width:44px;padding:0;border-left:1px solid var(--line)}
+.ctrls>*+*:not(.totop){border-left:1px solid var(--line)}
+.ctrls .rtog:hover,.ctrls .ttog:hover,.ctrls .totop:hover{color:var(--o)}
+@media (max-width:600px){.ctrls{right:12px;bottom:12px}.ctrls .rtog{display:none}.ctrls .rtog,.ctrls .ttog{padding:0 12px}}
+
+/* Now working on: optional work in progress snippet beside an update, and the viewer it opens */
+.uprow.has-media{grid-template-columns:140px 130px minmax(0,1fr) 168px}
+.upmedia{display:block;width:168px;aspect-ratio:4/3;padding:0;border:1px solid var(--line);background:none;overflow:hidden;cursor:zoom-in;align-self:start;transition:border-color .4s}
+.upmedia img,.upmedia video{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.6,.2,1)}
+.upmedia:hover{border-color:var(--o)}.upmedia:hover img,.upmedia:hover video{transform:scale(1.05)}
+.upmedia:focus-visible{outline:2px solid var(--o);outline-offset:4px}
+.upviewer{border:0;padding:0;background:transparent;max-width:min(1200px,92vw);max-height:92vh;overflow:visible;color:#f2f2f2}
+.upviewer::backdrop{background:rgba(12,12,12,.86)}
+.upstage img,.upstage video{display:block;max-width:min(1200px,92vw);max-height:80vh;width:auto;height:auto;margin:0 auto}
+.upcap{margin:14px 0 0;font-size:13px;letter-spacing:.04em;color:#cfcfcf;text-align:center}
+.upclose{position:absolute;right:0;top:-40px;background:none;border:0;color:#f2f2f2;font:11px/1 inherit;font-family:inherit;letter-spacing:.22em;text-transform:uppercase;padding:10px 0;cursor:pointer}
+.upclose:hover{color:var(--o)}.upclose:focus-visible{outline:2px solid var(--o);outline-offset:4px}
+@media (max-width:760px){.uprow.has-media{grid-template-columns:1fr}.upmedia{width:100%;max-width:320px}}
+@media (prefers-reduced-motion:reduce){.upmedia img,.upmedia video{transition:none}.upmedia:hover img,.upmedia:hover video{transform:none}}

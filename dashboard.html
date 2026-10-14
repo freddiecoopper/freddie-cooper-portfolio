@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Dashboard | Freddie Cooper</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#d6d6d6">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap">
 <link rel="stylesheet" href="css/dashboard.css">
 <link rel="stylesheet" href="css/theme.css">
@@ -14,23 +18,43 @@
 <div class="in" style="padding-top:32px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px"><span class="lbl">Dashboard</span><a class="back" href="index.html">Back to site</a></div>
 <div class="in"><div class="hr"></div></div>
 <div class="in" style="padding-top:clamp(36px,6vw,80px);padding-bottom:28px"><h1 class="d" style="font-size:clamp(40px,6vw,88px)">Your site, at a glance.</h1></div>
+
 <div class="in" id="auth">
 <div class="authrow"><div class="f"><label class="lbl" for="tok">Dashboard token</label><input class="fld" id="tok" type="password" autocomplete="off" placeholder="The DASHBOARD_TOKEN you set on the server"></div><button class="btn" id="load" type="button">Open dashboard</button></div>
 <p class="msg" id="authMsg" role="status"></p>
 </div>
+
 <div class="in" id="app" hidden>
-<div class="tabs" role="group" aria-label="Sections"><button class="tab on" id="tReq" type="button" aria-pressed="true">Requests <span class="badge" id="newCount"></span></button><button class="tab" id="tTraffic" type="button" aria-pressed="false">Traffic</button><span class="grow"></span><button class="sbtn" id="refresh" type="button">Refresh</button><button class="sbtn" id="signout" type="button">Sign out</button></div>
-<div class="hr" style="margin-bottom:8px"></div>
+<div class="tabs" id="tabs" role="group" aria-label="Sections"></div>
+<div style="display:flex;justify-content:flex-end;gap:24px;margin-top:-8px"><button class="sbtn" id="refresh" type="button">Refresh</button><button class="sbtn" id="signout" type="button">Sign out</button></div><div class="hr" style="margin-bottom:8px"></div>
 <p class="msg" id="msg" role="status" aria-live="polite"></p>
-<section id="reqPanel"><div class="bar"><div class="seg" id="filters" role="group" aria-label="Filter requests"></div><span class="lbl" id="reqCount"></span></div><div id="reqList"></div></section>
-<section id="trafficPanel" hidden><div class="bar"><div class="seg" id="ranges" role="group" aria-label="Date range"></div><span class="lbl" id="rangeNote"></span></div><div class="stats" id="stats"></div><div class="chartbox"><svg id="chart" role="img" aria-label="Visitors and page views per day" preserveAspectRatio="none"></svg><div class="axis"><span id="axL"></span><span id="axR"></span></div><div class="legend"><span class="k1">Visitors</span><span class="k2">Page views</span></div></div><div class="tbls" id="tbls"></div></section>
+
+<section id="reqPanel">
+<div class="stats four" id="reqStats" style="margin-top:20px"></div>
+<div class="bar"><div class="seg" id="filters" role="group" aria-label="Filter requests"></div><span class="lbl" id="reqCount"></span></div>
+<div id="reqList"></div>
+</section>
+
+<section id="trafficPanel" hidden>
+<div class="bar"><div class="seg" id="ranges" role="group" aria-label="Date range"></div><span class="lbl" id="rangeNote"></span></div>
+<div class="stats" id="stats"></div>
+<div class="chartbox"><svg id="chart" role="img" aria-label="Visitors and page views per day" preserveAspectRatio="none"></svg><div class="axis"><span id="axL"></span><span id="axR"></span></div><div class="legend"><span class="k1">Visitors</span><span class="k2">Page views</span></div></div>
+<div class="tbls" id="tbls"></div>
+</section>
+<section id="homePanel" hidden><div class="bar"><span class="lbl" id="homeNote"></span></div><div id="homeForm"></div></section>
+<section id="projPanel" hidden><div class="bar"><span class="lbl" id="projCount"></span><button class="btn" id="projAdd" type="button">Add project</button></div><div id="projForm"></div><div id="projList"></div></section>
+<section id="wpPanel" hidden><div class="bar"><span class="lbl" id="wpCount"></span><button class="btn" id="wpAdd" type="button">Add wallpaper</button></div><div id="wpForm"></div><div id="wpList"></div></section>
+<section id="salesPanel" hidden><div class="stats" id="saleStats"></div><div class="tbls" id="saleTbls" style="margin-top:40px"></div><div class="bar"><span class="lbl">Recent sales</span></div><div id="saleList"></div></section>
+<section id="upPanel" hidden><div class="bar"><span class="lbl" id="upCount"></span><button class="btn" id="upAdd" type="button">Add update</button></div><p class="empty" style="padding:0 0 24px">These appear in Now working on on the home page and the projects page, newest three first.</p><div id="upForm"></div><div id="upList"></div></section>
 <div style="height:96px"></div>
 </div>
+
 <div class="in"><div class="hr"></div></div>
 <div class="in" style="display:flex;justify-content:space-between;gap:16px;padding-top:28px;padding-bottom:48px"><span class="lbl">Freddie Cooper</span><span class="lbl">Private</span></div>
-<button class="ttog" id="ttog" type="button" aria-pressed="false">Dark mode</button>
+<div class="ctrls"><button class="ttog" id="ttog" type="button" aria-pressed="false">Dark mode</button></div>
 </div>
 <script src="js/theme.js"></script>
+<script src="js/content.js"></script>
 <script src="js/dashboard.js"></script>
 </body>
 </html>

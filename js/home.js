@@ -1,5 +1,5 @@
-/* Home page behaviour: hero images, divider slider and site modes, About text, ripple grid.
-   Content comes from js/content.js. */
+/* Home page behaviour: hero images, divider slider and site modes, About, skills, process, ripple grid.
+   Content comes from the dashboard's Home page tab (/api/site), or js/content.js until that is saved. */
 const CONFIG = {
   "gridSize": 11,
   "gridArea": 160,
@@ -16,16 +16,16 @@ const CONFIG = {
   "gridTextRange": 10,
   "gridColor": "#7b7b7b",
   "gridCrestColor": "#df4d1c",
-  "darkGridColor": "#b8b8b8"
+  "darkGridColor": "#ffffff"
 };
 const $ = (id) => document.getElementById(id);
 const state = { ripples: true };
-const HERO = SITE.hero;
-$('about').textContent = SITE.about;
+let HERO = SITE.hero;
 
 /* ---- Hero: each side steps through its folder. Left changes at 10s, 30s, 50s...; right at 20s, 40s...
         so every side changes every 20 seconds, one after the other. Waiting images sit fully behind the divider. */
 function buildStack(el, list) {
+  el.textContent = '';
   list.forEach(function (im) {
     var w = document.createElement('div'); w.className = 'hiw';
     var i = document.createElement('img'); i.className = 'hi'; i.src = im.src; i.alt = im.alt || '';
@@ -33,7 +33,6 @@ function buildStack(el, list) {
     w.appendChild(i); el.appendChild(w);
   });
 }
-buildStack($('stackL'), HERO.viz); buildStack($('stackR'), HERO.id);
 function showStack(el, list, active, left) {
   Array.prototype.forEach.call(el.children, function (w, n) {
     var im = list[n], x = im.x || 0, ww = im.w == null ? 100 : im.w, T = left ? 102 - x : x + ww + 2;
@@ -48,7 +47,28 @@ function heroRender() {
   $('capL').textContent = (HERO.viz[li] && HERO.viz[li].caption) || 'Photoreal visualization, animation and physics simulation';
   $('capR').textContent = (HERO.id[ri] && HERO.id[ri].caption) || 'Mechanical modeling and engineering-led product design';
 }
-heroRender();
+
+/* ---- The editable parts of the page: hero, About, skills, How I work, Book a call ---- */
+function cellList(box, items) { box.textContent = ''; (items || []).forEach(function (t) { var c = document.createElement('div'); c.className = 'cell'; c.textContent = t; box.appendChild(c); }); }
+function applyHome(h) {
+  HERO = { viz: (h.hero && h.hero.viz) || [], id: (h.hero && h.hero.id) || [] };
+  buildStack($('stackL'), HERO.viz); buildStack($('stackR'), HERO.id); heroRender();
+  $('about').textContent = h.about || '';
+  if (h.portrait && h.portrait.src) { $('portrait').src = h.portrait.src; $('portrait').alt = h.portrait.alt || 'Portrait of Freddie Cooper'; }
+  cellList($('skL'), h.skills && h.skills.viz); cellList($('skR'), h.skills && h.skills.id);
+  var st = $('steps'), steps = h.process || []; st.textContent = ''; st.style.gridTemplateColumns = 'repeat(' + Math.max(1, Math.min(steps.length, 4)) + ',1fr)';
+  steps.forEach(function (p, i) {
+    var d = document.createElement('div'); d.className = 'step'; var b = document.createElement('b'); b.textContent = (i < 9 ? '0' : '') + (i + 1);
+    var l = document.createElement('div'); l.className = 'lbl'; l.style.marginBottom = '12px'; l.textContent = p.title || '';
+    var t = document.createElement('p'); t.className = 'body'; t.style.fontSize = '15px'; t.textContent = p.text || '';
+    d.appendChild(b); d.appendChild(l); d.appendChild(t); st.appendChild(d);
+  });
+  if (h.calendly) $('callBtn').href = h.calendly;
+}
+var homeShown = '';
+function showHome(h) { var k = JSON.stringify(h); if (k === homeShown) return; homeShown = k; applyHome(h); }
+showHome(siteHome(null));
+loadHome().then(showHome);
 if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) setInterval(function () { heroStep++; heroRender(); }, 10000);
 
 /* ---- Divider slider. Right end: product visualization only. Left end: industrial design only. ---- */
@@ -60,7 +80,8 @@ function setPos(pos) {
   el.vline.style.opacity = split ? 1 : 0;
   el.hcl.style.display = idMode ? 'none' : 'block'; el.hcl.style.width = split ? '50%' : '100%';
   el.hcr.style.display = vizMode ? 'none' : 'block'; el.hcr.style.width = split ? '50%' : '100%';
-  el.count.textContent = split ? '05 projects' : (vizMode ? '03 projects' : '02 projects');
+  var shown = FEATURED.filter(function (p) { return split || p.kind === (vizMode ? 'viz' : 'id'); }).length;
+  el.count.textContent = (shown < 10 ? '0' : '') + shown + (shown === 1 ? ' project' : ' projects');
   el.g5.style.justifyContent = split ? 'flex-start' : 'center';
   document.querySelectorAll('[data-zone="id"]').forEach(function (n) { n.style.display = vizMode ? 'none' : 'block'; });
   document.querySelectorAll('[data-zone="viz"]').forEach(function (n) { n.style.display = idMode ? 'none' : 'block'; });
@@ -69,19 +90,33 @@ function setPos(pos) {
   el.dgr.style.display = vizMode ? 'none' : 'block'; el.dgr.style.paddingLeft = split ? '40px' : '0';
 }
 el.slider.addEventListener('input', function (e) { setPos(Number(e.target.value)); });
-setPos(Number(el.slider.value));
 
-/* ---- Contact: open an email draft or the configured booking page. ---- */
-$('callBtn').href = SITE.contact.calendly;
-$('mailBtn').addEventListener('click', function () { var open = $('cmp').hidden; $('cmp').hidden = !open; $('mailBtn').setAttribute('aria-expanded', open); $('mMsg').textContent = ''; });
+/* ---- Featured work: projects marked featured in the dashboard (or js/content.js), up to five, in project order ---- */
+var FEATURED = [];
+function renderFeatured(list) {
+  FEATURED = list.filter(function (p) { return p.featured && p.feature; }).slice(0, 5);
+  var g = el.g5; g.textContent = '';
+  FEATURED.forEach(function (p, i) {
+    var href = projectHref(p) || 'projects.html', a = document.createElement('a'); a.className = 'wp'; a.href = href; a.setAttribute('data-zone', p.kind);
+    var ph = document.createElement('span'); ph.className = 'ph' + (p.featureFade === false ? '' : ' fd');
+    var im = document.createElement('img'); im.src = p.feature; im.alt = p.alt || (p.name + ' render'); ph.appendChild(im); colourLayer(ph, p.featureColor);
+    var l = document.createElement('span'); l.className = 'lbl wl'; l.textContent = (i < 9 ? '0' : '') + (i + 1) + ' ' + p.name;
+    a.appendChild(ph); a.appendChild(l); g.appendChild(a);
+  });
+  setPos(Number(el.slider.value));
+}
+renderFeatured(SITE.projects.filter(function (p) { return p.visible !== false; }));
+loadProjects().then(function (items) { renderFeatured(items); });
+
+/* ---- Contact: Send an email opens a small composer, Book a call goes to Calendly ---- */
+$('mailBtn').addEventListener('click', function () { var o = $('cmp').hidden; $('cmp').hidden = !o; $('mailBtn').setAttribute('aria-expanded', o); $('mMsg').textContent = ''; });
 $('mCancel').addEventListener('click', function () { $('cmp').hidden = true; $('mailBtn').setAttribute('aria-expanded', false); });
 function mailReady() { $('mSend').disabled = !($('mSubject').value.trim() && $('mBody').value.trim()); }
 $('mSubject').addEventListener('input', mailReady); $('mBody').addEventListener('input', mailReady);
 $('mSend').addEventListener('click', function () {
-  var subject = $('mSubject').value.trim(), message = $('mBody').value.trim();
-  if (!subject || !message) return;
-  $('mMsg').textContent = 'Your email app should open with your message ready to send. If nothing opens, use the email link in the footer.';
-  window.location.href = 'mailto:' + SITE.contact.to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(message);
+  var su = $('mSubject').value.trim(), bo = $('mBody').value.trim(); if (!su || !bo) return;
+  $('mMsg').textContent = 'Your email app should open with your message ready to send. If nothing opens, copy your message and use the email link in the footer.';
+  window.location.href = 'mailto:' + SITE.contact.to + '?subject=' + encodeURIComponent(su) + '&body=' + encodeURIComponent(bo);
 });
 
 /* ---- Cursor ripple grid ---- */
