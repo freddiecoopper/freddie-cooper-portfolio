@@ -75,3 +75,4 @@ body{margin:0}
 .empty{padding:48px 0;color:var(--m);font-size:17px}
 @media (max-width:760px){.how{grid-template-columns:1fr;gap:28px}}
 @media (prefers-reduced-motion:reduce){.wc{animation:none}.wi img{transition:none}.wc:hover .wi img{transform:none}}
+@media (max-width:760px){.wfilters{flex-direction:column;align-items:stretch;gap:4px}.wgroup{gap:6px 26px}}

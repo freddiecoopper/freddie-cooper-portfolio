@@ -91,3 +91,26 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 .ed.wide{max-width:1100px}
 .edrow.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media (max-width:820px){.edrow.two{grid-template-columns:1fr}}
+
+/* ---- Phones ---- */
+@media (max-width:760px){
+  /* smaller heading, so the tabs and your content start higher up */
+  .dhead{padding-top:28px!important;padding-bottom:20px!important}.dhead .d{font-size:34px!important}
+  /* tabs on one line you swipe, staying at the top while you scroll a long editor */
+  .tabs{position:sticky;top:0;z-index:5;background:var(--bg);gap:0 26px;border-bottom:1px solid var(--line)}
+  .tab{padding:16px 0}
+  .seg{gap:0 24px}.bar{margin:20px 0 16px}
+  /* editors: less padding inside boxes inside boxes, so fields get the width */
+  .ed{padding:16px;gap:18px;margin:4px 0 24px}
+  .repi{padding:12px}
+  .uplb{gap:14px}
+  .edrow.num3{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  /* 16px or more stops iPhones zooming in when you tap a field */
+  .fld,.imgrow .fld,.upl .fld,.pipe .fld{font-size:16px}
+  .ed textarea.fld{font-size:16px}
+  .lrow{gap:14px}
+  .acts{gap:4px 20px}
+  .req{padding:22px 0}
+  .stat{padding:18px 12px 18px 0}
+  .btn{padding:15px 22px}
+}

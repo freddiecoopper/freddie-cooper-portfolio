@@ -62,3 +62,5 @@ body{margin:0}
 @media (prefers-reduced-motion:reduce){.mc{animation:none}}
 .totop{position:fixed;right:24px;bottom:16px;z-index:6;width:44px;height:44px;background:none;border:1px solid var(--line);color:var(--t);font-family:inherit;font-size:20px;line-height:1;cursor:pointer;transition:border-color .5s,color .5s}
 .totop:hover{border-color:var(--o);color:var(--o)}.totop:focus-visible{outline:2px solid var(--o);outline-offset:4px}
+/* Phones: the Story / Presentation switch gets its own line under "Case study" and "All projects" */
+@media (max-width:760px){.topbar{flex-wrap:wrap;row-gap:4px}.topbar .seg{order:3;flex:1 0 100%;gap:28px}}

@@ -19,6 +19,20 @@ body{margin:0}
 .ctrls .rtog:hover,.ctrls .ttog:hover,.ctrls .totop:hover{color:var(--o)}
 @media (max-width:600px){.ctrls{right:12px;bottom:12px}.ctrls .rtog{display:none}.ctrls .rtog,.ctrls .ttog{padding:0 12px}}
 
+/* Phones: keep the control bar clear of the home indicator, and leave room under the last
+   line of every page so the bar never sits on top of it. */
+@media (max-width:760px){
+  .ctrls{right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom))}
+  .p{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+}
+/* .swipe: a row of filter or tab buttons that scrolls sideways on a phone instead of wrapping.
+   It runs to the screen edges (--g is the page gutter) so it is clear there is more to swipe. */
+@media (max-width:760px){
+  .swipe{--g:22px;display:flex;flex-wrap:nowrap!important;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin-left:calc(-1 * var(--g));margin-right:calc(-1 * var(--g));padding-left:var(--g);padding-right:var(--g);scroll-padding-left:var(--g)}
+  .swipe::-webkit-scrollbar{display:none}
+  .swipe>*{flex:none;white-space:nowrap}
+}
+
 /* Now working on: optional work in progress snippet beside an update, and the viewer it opens */
 .uprow.has-media{grid-template-columns:140px 130px minmax(0,1fr) 168px}
 .upmedia{display:block;width:168px;aspect-ratio:4/3;padding:0;border:1px solid var(--line);background:none;overflow:hidden;cursor:zoom-in;align-self:start;transition:border-color .4s}

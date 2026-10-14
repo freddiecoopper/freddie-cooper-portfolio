@@ -444,7 +444,7 @@ function openHome(h) {
     g.appendChild(repeater(h.hero[side[0]], function (im) {
       var d = el('div', 'repb'); d.appendChild(mediaField('Image', im, 'src')); d.appendChild(textField('Description', im, 'alt'));
       d.appendChild(textField('Caption', im, 'caption', { hint: 'Shown under Featured work in the hero while this image is up.' }));
-      var r = el('div', 'edrow'); r.appendChild(numField('Left %', im, 'x')); r.appendChild(numField('Top %', im, 'y')); r.appendChild(numField('Width %', im, 'w')); d.appendChild(r); return d;
+      var r = el('div', 'edrow num3'); r.appendChild(numField('Left %', im, 'x')); r.appendChild(numField('Top %', im, 'y')); r.appendChild(numField('Width %', im, 'w')); d.appendChild(r); return d;
     }, 'Add an image', function () { return { src: '', alt: '', caption: '', x: 0, y: 0, w: 100 }; }));
     box.appendChild(g);
   });

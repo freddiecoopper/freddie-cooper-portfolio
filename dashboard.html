@@ -17,7 +17,7 @@
 <div class="p">
 <div class="in" style="padding-top:32px;padding-bottom:28px;display:flex;justify-content:space-between;align-items:baseline;gap:16px"><span class="lbl">Dashboard</span><a class="back" href="index.html">Back to site</a></div>
 <div class="in"><div class="hr"></div></div>
-<div class="in" style="padding-top:clamp(36px,6vw,80px);padding-bottom:28px"><h1 class="d" style="font-size:clamp(40px,6vw,88px)">Your site, at a glance.</h1></div>
+<div class="in dhead" style="padding-top:clamp(36px,6vw,80px);padding-bottom:28px"><h1 class="d" style="font-size:clamp(40px,6vw,88px)">Your site, at a glance.</h1></div>
 
 <div class="in" id="auth">
 <div class="authrow"><div class="f"><label class="lbl" for="tok">Dashboard token</label><input class="fld" id="tok" type="password" autocomplete="off" placeholder="The DASHBOARD_TOKEN you set on the server"></div><button class="btn" id="load" type="button">Open dashboard</button></div>
@@ -25,18 +25,18 @@
 </div>
 
 <div class="in" id="app" hidden>
-<div class="tabs" id="tabs" role="group" aria-label="Sections"></div>
+<div class="tabs swipe" id="tabs" role="group" aria-label="Sections"></div>
 <div style="display:flex;justify-content:flex-end;gap:24px;margin-top:-8px"><button class="sbtn" id="refresh" type="button">Refresh</button><button class="sbtn" id="signout" type="button">Sign out</button></div><div class="hr" style="margin-bottom:8px"></div>
 <p class="msg" id="msg" role="status" aria-live="polite"></p>
 
 <section id="reqPanel">
 <div class="stats four" id="reqStats" style="margin-top:20px"></div>
-<div class="bar"><div class="seg" id="filters" role="group" aria-label="Filter requests"></div><span class="lbl" id="reqCount"></span></div>
+<div class="bar"><div class="seg swipe" id="filters" role="group" aria-label="Filter requests"></div><span class="lbl" id="reqCount"></span></div>
 <div id="reqList"></div>
 </section>
 
 <section id="trafficPanel" hidden>
-<div class="bar"><div class="seg" id="ranges" role="group" aria-label="Date range"></div><span class="lbl" id="rangeNote"></span></div>
+<div class="bar"><div class="seg swipe" id="ranges" role="group" aria-label="Date range"></div><span class="lbl" id="rangeNote"></span></div>
 <div class="stats" id="stats"></div>
 <div class="chartbox"><svg id="chart" role="img" aria-label="Visitors and page views per day" preserveAspectRatio="none"></svg><div class="axis"><span id="axL"></span><span id="axR"></span></div><div class="legend"><span class="k1">Visitors</span><span class="k2">Page views</span></div></div>
 <div class="tbls" id="tbls"></div>
