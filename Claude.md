@@ -57,12 +57,11 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 
 ## Gotchas
 - `js/content.js` is a plain object literal: a missing comma breaks every page. Syntax-check it after editing (`node -e "new Function(require('fs').readFileSync('js/content.js','utf8'))"`).
-- Share previews use `https://YOUR-DOMAIN` in each page head. Replace it with the live address after deploying.
+- Share previews in each page head use the live address, `https://freddie-cooper-portfolio.vercel.app`. Update them (and `SITE_URL`) if the site moves to its own domain.
 - Never commit `.env` files. `.env.example` lists every variable: Resend, KV, `DASHBOARD_TOKEN`, `TRACK_SALT`, Paystack, `SITE_URL`, `DOWNLOAD_SECRET`, `BLOB_READ_WRITE_TOKEN`.
 - `dashboard-files/` and `freddie-cooper-site-update1/` are old copies kept for reference and are git-ignored. Do not edit them.
 - `script.js`, `styles.css` and the loose images directly in `images/` (such as `hero-amg.png`, `work-1-keyboard.png`) are unused leftovers.
 
 ## Still to do
 - Real case studies for more projects (A.R.C.S was a test of the case study page).
-- Replace `YOUR-DOMAIN` once the site is live.
 - Connect Vercel Blob, KV, Resend and Paystack, then test uploads, saving and the request form on the live site.
