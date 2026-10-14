@@ -219,7 +219,7 @@ function renderUp() {
   });
 }
 /* ---- sales ---- */
-function loadSales() { say('Loading.'); api('/api/sales').then(function (j) { S.sales = j.items || []; say(''); renderSales(); }).catch(function (e) { say(e.message); }); }
+function loadSales() { say('Loading.'); api('/api/stats?view=sales').then(function (j) { S.sales = j.items || []; say(''); renderSales(); }).catch(function (e) { say(e.message); }); }
 function renderSales() {
   var items = S.sales || [], byCur = {}, byPack = {};
   items.forEach(function (s) { byCur[s.currency] = (byCur[s.currency] || 0) + s.amount; var p = byPack[s.name] || (byPack[s.name] = { n: 0, rev: {} }); p.n++; p.rev[s.currency] = (p.rev[s.currency] || 0) + s.amount; });

@@ -29,7 +29,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 | Wallpaper packs | Wallpapers | `api/wallpapers.js` | `wallpapers` |
 | Project requests (pipeline: new, talking, quoted, won, lost; value; private notes) | Requests | `api/requests.js` | none |
 | Traffic | Traffic | `api/stats.js`, `api/track.js` | none |
-| Sales | Sales | `api/sales.js`, `api/checkout.js`, `api/paystack-webhook.js`, `api/download.js` | none |
+| Sales | Sales | `api/stats.js?view=sales`, `api/checkout.js`, `api/paystack-webhook.js`, `api/download.js` | none |
 
 - `js/live.js` loads the API data for the public pages (`loadProjects`, `loadHome`, `loadUpdates`, `loadWallpapers`) and falls back to `SITE`.
 - `api/upload.js` stores dashboard uploads in Vercel Blob (`@vercel/blob`, the only package, in `package.json`).
@@ -58,6 +58,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 ## Gotchas
 - `js/content.js` is a plain object literal: a missing comma breaks every page. Syntax-check it after editing (`node -e "new Function(require('fs').readFileSync('js/content.js','utf8'))"`).
 - Share previews in each page head use the live address, `https://freddie-cooper-portfolio.vercel.app`. Update them (and `SITE_URL`) if the site moves to its own domain.
+- Vercel's Hobby plan allows at most 12 functions (files in `api/` not starting with `_`); a 13th makes every deploy fail. Add new endpoints to an existing file (as `?view=sales` in `stats.js`) rather than a new file.
 - Never commit `.env` files. `.env.example` lists every variable: Resend, KV, `DASHBOARD_TOKEN`, `TRACK_SALT`, Paystack, `SITE_URL`, `DOWNLOAD_SECRET`, `BLOB_READ_WRITE_TOKEN`.
 - `dashboard-files/` and `freddie-cooper-site-update1/` are old copies kept for reference and are git-ignored. Do not edit them.
 - `script.js`, `styles.css` and the loose images directly in `images/` (such as `hero-amg.png`, `work-1-keyboard.png`) are unused leftovers.
