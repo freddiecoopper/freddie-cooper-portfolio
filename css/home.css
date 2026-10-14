@@ -194,8 +194,8 @@ button.btn{font-family:inherit;cursor:pointer}.btn[disabled]{opacity:.35;pointer
   .cell{padding:20px 14px;font-size:12px;letter-spacing:.14em}
 
   /* How I work */
-  .step{padding:0 0 36px 20px}
-  .step b{font-size:72px;margin-bottom:20px}
+  .step{padding:0 0 28px 20px}
+  .step b{font-size:48px;margin-bottom:12px}
 
   /* About, contact and footer */
   .g2{gap:40px!important}.g2 h2.d{margin-bottom:28px!important}

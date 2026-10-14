@@ -17,7 +17,21 @@ body{margin:0}
 .ctrls .totop{width:44px;padding:0;border-left:1px solid var(--line)}
 .ctrls>*+*:not(.totop){border-left:1px solid var(--line)}
 .ctrls .rtog:hover,.ctrls .ttog:hover,.ctrls .totop:hover{color:var(--o)}
-@media (max-width:600px){.ctrls{right:12px;bottom:12px}.ctrls .rtog{display:none}.ctrls .rtog,.ctrls .ttog{padding:0 12px}}
+/* Light / dark switch is an icon (moon or sun, drawn by js/theme.js), square like Back to top */
+.ctrls .ttog{width:44px;padding:0;color:var(--t)}
+.ctrls .ttog svg{display:block}
+@media (max-width:600px){.ctrls{right:12px;bottom:12px}.ctrls .rtog{display:none}.ctrls .rtog{padding:0 12px}}
+
+/* Phones: lighter text. m-hide drops repeated or decorative copy, m-only is its short stand-in. */
+.m-only{display:none}
+@media (max-width:760px){
+  .m-hide{display:none!important}
+  .m-only{display:inline}
+  /* the small uppercase labels, buttons, filters and tabs keep their style with much less tracking */
+  .p :is(.lbl,.hl,.fb,.tab,.sbtn,.sbtn2,.sbtn3,.btn,.back,.chip,.upst,.legend,.wb,.upclose,.mail){letter-spacing:.08em}
+  /* lists that were set in spaced capitals read as plain words */
+  .p :is(.cell,.opt span){text-transform:none;letter-spacing:0;font-size:16px}
+}
 
 /* Phones: keep the control bar clear of the home indicator, and leave room under the last
    line of every page so the bar never sits on top of it. */
