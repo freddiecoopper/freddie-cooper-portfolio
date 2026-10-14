@@ -432,19 +432,105 @@ function loadHomeTab(done) {
     openHome(Object.assign(builtInHome(), saved || {}));
   }).catch(function (e) { say(e.message); });
 }
-function numField(label, obj, key, hint) {
-  var w = el('div', 'f'), i = el('input', 'fld'); i.type = 'number'; i.step = '1'; i.value = obj[key] == null ? '' : obj[key];
-  i.addEventListener('input', function () { obj[key] = i.value === '' ? null : Number(i.value); }); w.appendChild(el('span', 'lbl', label)); w.appendChild(i); if (hint) w.appendChild(el('p', 'hintp', hint)); return w;
+/* A number box. It remembers what it edits (_o, _k) so the hero preview can write new values back into it. */
+function numField(label, obj, key, hint, onInput) {
+  var w = el('div', 'f'), i = el('input', 'fld hnum'); i.type = 'number'; i.step = 'any'; i.value = obj[key] == null ? '' : obj[key]; i._o = obj; i._k = key;
+  i.addEventListener('input', function () { obj[key] = i.value === '' ? null : Number(i.value); if (onInput) onInput(); }); w.appendChild(el('span', 'lbl', label)); w.appendChild(i); if (hint) w.appendChild(el('p', 'hintp', hint)); return w;
+}
+
+/* Hero preview: the home page hero at the same proportions, one image per side and the divider between.
+   Images are placed exactly as js/home.js places them (left, top and width as percentages of the frame,
+   height from the image itself). Drag an image to move it; Size scales it around its centre.
+   PHONE_CROP is the share cut off at each side on phones: home.css zooms the hero there by 1.32 (.hiw scale),
+   so phones see the middle 1/1.32 = 75.8%. Change both together. */
+var PHONE_CROP = (1 - 1 / 1.32) / 2 * 100;
+function heroPreview(h, form) {
+  var g = group('Hero preview', 'Same shape as the hero on the home page. Pick an image for each side, drag it in the frame to move it, and use Size to scale it. Arrow keys nudge the selected image (hold Shift for bigger steps). Left %, Top % and Width % below follow along. Save the home page to publish.');
+  var st = { li: 0, ri: 0, pos: 50, act: 'viz', crop: false }, drag = null;
+  var picks = el('div', 'hpicks'), frame = el('div', 'hpv'), cl = el('div', 'hpc'), cr = el('div', 'hpc'), il = el('img'), ir = el('img'), line = el('div', 'hpline'), crop = el('div', 'hpcrop');
+  il.alt = ir.alt = ''; il.draggable = ir.draggable = false;
+  cl.appendChild(il); cr.appendChild(ir); frame.appendChild(cl); frame.appendChild(cr); frame.appendChild(crop); frame.appendChild(line);
+  frame.tabIndex = 0; frame.setAttribute('role', 'group'); frame.setAttribute('aria-label', 'Hero preview. Arrow keys move the selected image.');
+  var div = el('input', 'hprange'); div.type = 'range'; div.min = 0; div.max = 100; div.value = 50; div.setAttribute('aria-label', 'Move the divider');
+  var info = el('div', 'hpinfo'), read = el('span', 'hpread'), size = el('input', 'hprange'), sw = el('label', 'hpsize');
+  size.type = 'range'; size.min = 10; size.max = 300; size.step = 1; size.setAttribute('aria-label', 'Size of the selected image');
+  sw.appendChild(el('span', 'lbl', 'Size')); sw.appendChild(size); info.appendChild(read); info.appendChild(sw);
+  [picks, frame, div, info, checkField('Show what phones see', st, 'crop', function () { draw(); })].forEach(function (n) { g.appendChild(n); });
+
+  var r1 = function (v) { return Math.round(v * 10) / 10; }, clamp = function (v, lo, hi) { return Math.min(hi, Math.max(lo, v)); };
+  function list(k) { return h.hero[k] || []; }
+  function idx(k) { return k === 'viz' ? st.li : st.ri; }
+  function cur(k) { var L = list(k); return L.length ? L[Math.min(idx(k), L.length - 1)] : null; }
+  function place(img, im) {
+    if (!im || !im.src) { img.hidden = true; return; }
+    img.hidden = false; if (img.getAttribute('src') !== im.src) img.src = im.src;
+    img.style.left = (im.x || 0) + '%'; img.style.top = (im.y || 0) + '%'; img.style.width = (im.w == null ? 100 : im.w) + '%';
+  }
+  function drawPicks() {
+    picks.textContent = '';
+    [['viz', 'Left'], ['id', 'Right']].forEach(function (s) {
+      var row = el('div', 'seg'); row.appendChild(el('span', 'lbl', s[1]));
+      list(s[0]).forEach(function (im, n) {
+        var b = el('button', 'fb' + (idx(s[0]) === n ? ' on' : ''), String(n + 1).padStart(2, '0')); b.type = 'button'; b.setAttribute('aria-pressed', idx(s[0]) === n);
+        b.addEventListener('click', function () { if (s[0] === 'viz') st.li = n; else st.ri = n; st.act = s[0]; draw(); }); row.appendChild(b);
+      });
+      if (!list(s[0]).length) row.appendChild(el('span', 'hintp', 'No images yet'));
+      picks.appendChild(row);
+    });
+  }
+  function draw() {
+    st.li = clamp(st.li, 0, Math.max(0, list('viz').length - 1)); st.ri = clamp(st.ri, 0, Math.max(0, list('id').length - 1));
+    drawPicks(); place(il, cur('viz')); place(ir, cur('id'));
+    cl.style.clipPath = 'inset(0 ' + (100 - st.pos) + '% 0 0)'; cr.style.clipPath = 'inset(0 0 0 ' + st.pos + '%)'; line.style.left = st.pos + '%';
+    crop.hidden = !st.crop; crop.style.left = crop.style.right = PHONE_CROP + '%';
+    var im = cur(st.act), nm = (st.act === 'viz' ? 'Left ' : 'Right ') + String(idx(st.act) + 1).padStart(2, '0');
+    read.textContent = im ? nm + ' selected: left ' + r1(im.x || 0) + '%, top ' + r1(im.y || 0) + '%, width ' + r1(im.w == null ? 100 : im.w) + '%' : 'Add an image to this side to place it here.';
+    size.disabled = !im; if (im) size.value = im.w == null ? 100 : im.w;
+  }
+  function changed() { draw(); form.querySelectorAll('input.hnum').forEach(function (i) { var v = i._o[i._k]; if (document.activeElement !== i) i.value = v == null ? '' : v; }); }
+
+  div.addEventListener('input', function () { st.pos = Number(div.value); draw(); });
+  size.addEventListener('input', function () {
+    var im = cur(st.act); if (!im) return;
+    var img = st.act === 'viz' ? il : ir, old = im.w == null ? 100 : im.w, nw = Number(size.value);
+    /* scale around the centre: height in % of the frame = width % x (frame w/h) x (image h/w) */
+    var k = img.naturalWidth ? (frame.clientWidth / frame.clientHeight) * (img.naturalHeight / img.naturalWidth) : 1;
+    im.x = r1(clamp((im.x || 0) + (old - nw) / 2, -100, 100)); im.y = r1(clamp((im.y || 0) + (old - nw) / 2 * k, -100, 100)); im.w = nw; changed();
+  });
+  frame.addEventListener('pointerdown', function (e) {
+    var rc = frame.getBoundingClientRect(); st.act = (e.clientX - rc.left) / rc.width * 100 < st.pos ? 'viz' : 'id';
+    var im = cur(st.act); draw(); if (!im) return;
+    drag = { x: e.clientX, y: e.clientY, ox: im.x || 0, oy: im.y || 0, w: rc.width, h: rc.height, im: im };
+    try { frame.setPointerCapture(e.pointerId); } catch (x) {} frame.classList.add('dragging'); e.preventDefault(); frame.focus();
+  });
+  frame.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    drag.im.x = r1(clamp(drag.ox + (e.clientX - drag.x) / drag.w * 100, -100, 100)); drag.im.y = r1(clamp(drag.oy + (e.clientY - drag.y) / drag.h * 100, -100, 100)); changed();
+  });
+  ['pointerup', 'pointercancel'].forEach(function (ev) { frame.addEventListener(ev, function () { drag = null; frame.classList.remove('dragging'); }); });
+  frame.addEventListener('keydown', function (e) {
+    var d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key], im = cur(st.act); if (!d || !im) return;
+    var s = e.shiftKey ? 5 : 0.5; im.x = r1(clamp((im.x || 0) + d[0] * s, -100, 100)); im.y = r1(clamp((im.y || 0) + d[1] * s, -100, 100)); changed(); e.preventDefault();
+  });
+  [il, ir].forEach(function (img) { img.addEventListener('load', draw); });
+  /* show a given image, for example one just uploaded */
+  g.show = function (k, im) { var n = list(k).indexOf(im); if (n < 0) return; if (k === 'viz') st.li = n; else st.ri = n; st.act = k; draw(); };
+  g.redraw = draw; draw(); return g;
 }
 function openHome(h) {
   var f = $('homeForm'); f.textContent = ''; var box = el('div', 'ed wide');
   h.hero = h.hero || {}; h.hero.viz = h.hero.viz || []; h.hero.id = h.hero.id || [];
+  var hp = heroPreview(h, f), later = 0;
+  function refresh() { clearTimeout(later); later = setTimeout(hp.redraw, 0); }   /* also runs after adding, removing or reordering images */
+  box.appendChild(hp);
   [['viz', 'Hero, product visualization side', 'The left side of the divider. The images take turns, one every 20 seconds.'], ['id', 'Hero, industrial design side', 'The right side of the divider.']].forEach(function (side) {
-    var g = group(side[1], side[2] + ' Position and size are percentages of the hero area: left 0, top 0, width 100 fills it. Use transparent PNGs, about 1600 x 900.');
+    var g = group(side[1], side[2] + ' Position and size are percentages of the hero area: left 0, top 0, width 100 fills it. Use transparent PNGs, about 1600 x 900. The Hero preview above shows the result.');
     g.appendChild(repeater(h.hero[side[0]], function (im) {
-      var d = el('div', 'repb'); d.appendChild(mediaField('Image', im, 'src')); d.appendChild(textField('Description', im, 'alt'));
+      var d = el('div', 'repb'); d.appendChild(mediaField('Image', im, 'src', { onChange: function (v) { if (v) hp.show(side[0], im); else refresh(); } })); d.appendChild(textField('Description', im, 'alt'));
       d.appendChild(textField('Caption', im, 'caption', { hint: 'Shown under Featured work in the hero while this image is up.' }));
-      var r = el('div', 'edrow num3'); r.appendChild(numField('Left %', im, 'x')); r.appendChild(numField('Top %', im, 'y')); r.appendChild(numField('Width %', im, 'w')); d.appendChild(r); return d;
+      var r = el('div', 'edrow num3'); r.appendChild(numField('Left %', im, 'x', null, refresh)); r.appendChild(numField('Top %', im, 'y', null, refresh)); r.appendChild(numField('Width %', im, 'w', null, refresh)); d.appendChild(r);
+      var see = el('button', 'sbtn', 'Show in preview'); see.type = 'button'; see.addEventListener('click', function () { hp.show(side[0], im); hp.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); d.appendChild(see);
+      refresh(); return d;
     }, 'Add an image', function () { return { src: '', alt: '', caption: '', x: 0, y: 0, w: 100 }; }));
     box.appendChild(g);
   });

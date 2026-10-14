@@ -114,3 +114,20 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
   .stat{padding:18px 12px 18px 0}
   .btn{padding:15px 22px}
 }
+
+/* Home page tab: hero preview (see heroPreview in js/dashboard.js) */
+.hpicks{display:flex;flex-wrap:wrap;gap:8px 48px}.hpicks .seg{align-items:baseline}.hpicks .seg>.lbl{margin-right:4px}
+.hpv{position:relative;aspect-ratio:1600/904;border:1px solid var(--line);overflow:hidden;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;background:color-mix(in srgb,var(--t) 4%,transparent)}
+.hpv.dragging{cursor:grabbing}
+.hpv:focus-visible{outline:2px solid var(--o);outline-offset:4px}
+.hpc{position:absolute;inset:0}
+.hpc img{position:absolute;display:block;height:auto;max-width:none;pointer-events:none}
+.hpline{position:absolute;top:0;bottom:0;width:1px;background:var(--t);transform:translateX(-50%);pointer-events:none}
+/* phone view: dashed edges, with the parts phones cut off dimmed */
+.hpcrop{position:absolute;top:0;bottom:0;border-left:1px dashed var(--o);border-right:1px dashed var(--o);pointer-events:none}
+.hpcrop:before,.hpcrop:after{content:"";position:absolute;top:0;bottom:0;width:100vw;background:color-mix(in srgb,var(--bg) 62%,transparent)}
+.hpcrop:before{right:100%}.hpcrop:after{left:100%}
+.hprange{display:block;width:100%;margin:0;accent-color:var(--o)}
+.hpinfo{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 32px}
+.hpread{font-size:14px;color:var(--m)}
+.hpsize{display:flex;align-items:center;gap:14px;flex:1;min-width:220px;max-width:420px}
