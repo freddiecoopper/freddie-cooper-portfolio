@@ -14,6 +14,7 @@ function clean(b) {
   const list = (a, n) => (Array.isArray(a) ? a : []).slice(0, n);
   const p = {
     id: ID_OK(b.id) ? String(b.id) : slug(b.name), name: cut(b.name, 120), kind: b.kind === 'id' ? 'id' : 'viz',
+    slug: /^[a-z0-9]+(-[a-z0-9]+)*$/.test(String(b.slug || '')) ? String(b.slug).slice(0, 80) : '',   /* its page: /work/<slug> */
     src: cut(b.src, 800), srcColor: cut(b.srcColor, 800), alt: cut(b.alt, 200), blurb: cut(b.blurb, 400), link: cut(b.link, 800),
     featured: b.featured === true, feature: cut(b.feature, 800), featureColor: cut(b.featureColor, 800), featureFade: b.featureFade !== false, visible: b.visible !== false, caseStudy: null
   };

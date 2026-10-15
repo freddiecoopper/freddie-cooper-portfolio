@@ -2,8 +2,8 @@
    They read /api/projects, /api/updates and /api/wallpapers (edited in the dashboard) and fall back to js/content.js. */
 function getJSON(url) { return fetch(url, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
 function loadProjects() { return getJSON('/api/projects').then(function (j) { return (j && j.items && j.items.length ? j.items : SITE.projects).filter(function (p) { return p.visible !== false; }); }); }
-/* Where a project opens: its case study, else its own link, else nowhere. */
-function projectHref(p) { return p.caseStudy && p.caseStudy.on !== false ? '/case-study?p=' + encodeURIComponent(p.id) : (p.link || ''); }
+/* Where a project opens: its own page in /work (when it has a slug), else its case study, else its own link, else nowhere. */
+function projectHref(p) { return p.slug ? '/work/' + p.slug : p.caseStudy && p.caseStudy.on !== false ? '/case-study?p=' + encodeURIComponent(p.id) : (p.link || ''); }
 /* Thumbnails show the grey image and fade to the colour version on hover. A missing colour file is dropped, so it stays grey. */
 function colourLayer(box, src) {
   if (!src) return; var c = document.createElement('img'); c.className = 'clr'; c.alt = ''; c.setAttribute('aria-hidden', 'true');

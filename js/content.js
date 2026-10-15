@@ -35,6 +35,7 @@ window.SITE = {
   projects: [
     {
       "id": "offgrid",
+      "slug": "offgrid-recovery-max-jar",
       "name": "Offgrid Recovery Max",
       "kind": "viz",
       "src": "images/projects/grey/offgrid.png",
@@ -51,6 +52,7 @@ window.SITE = {
     },
     {
       "id": "aurum",
+      "slug": "aurum-serum-dropper-bottle",
       "name": "Aurum",
       "kind": "viz",
       "src": "images/projects/grey/aurum.png",
@@ -67,6 +69,7 @@ window.SITE = {
     },
     {
       "id": "amg",
+      "slug": "amg-steering-wheel",
       "name": "AMG Steering",
       "kind": "viz",
       "src": "images/projects/grey/amg.png",
@@ -83,6 +86,7 @@ window.SITE = {
     },
     {
       "id": "nord",
+      "slug": "nord-gear-selector",
       "name": "Nord Gear Selector",
       "kind": "viz",
       "src": "images/projects/grey/nord.png",
@@ -99,6 +103,7 @@ window.SITE = {
     },
     {
       "id": "arcs",
+      "slug": "arcs-tank-cleaning-robot",
       "name": "A.R.C.S",
       "kind": "id",
       "src": "images/projects/grey/arcs.png",
@@ -217,6 +222,7 @@ window.SITE = {
     },
     {
       "id": "keyboard",
+      "slug": "mechanical-keyboard-numpad",
       "name": "Mechanical Keyboard",
       "kind": "id",
       "src": "images/projects/grey/keyboard.png",

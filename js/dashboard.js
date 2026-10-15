@@ -356,6 +356,7 @@ function openProj(src) {
   var box = el('div', 'ed'); box.appendChild(el('span', 'lbl', p.id ? 'Edit project' : 'New project'));
 
   var g1 = group('Project'); g1.appendChild(textField('Name', p, 'name'));
+  g1.appendChild(textField('Page address', p, 'slug', { placeholder: 'offgrid-recovery-max-jar', hint: 'The end of the page address for this project: /work/' + (p.slug || 'page-address') + '. Lowercase words joined by hyphens. Fill this in only once the page exists as work/<page-address>.html in the site files; until then the project opens its case study or link.' }));
   var kw = el('div', 'f'), ks = el('select', 'fld'); KINDS.forEach(function (k) { var o = el('option', '', k[1]); o.value = k[0]; ks.appendChild(o); }); ks.value = p.kind || 'viz'; ks.addEventListener('change', function () { p.kind = ks.value; });
   kw.appendChild(el('span', 'lbl', 'Type')); kw.appendChild(ks); g1.appendChild(kw);
   g1.appendChild(mediaField('Thumbnail', p, 'src', { hint: 'The grey version, shown on the projects page. 4:3 works best, for example 1200 x 900.' })); g1.appendChild(mediaField('Thumbnail, colour version', p, 'srcColor', { hint: 'Optional. Shown on hover. Same size and crop as the grey thumbnail.' }));
@@ -410,6 +411,7 @@ function openProj(src) {
   var row = el('div', 'acts'), save = el('button', 'btn', 'Save project'), cancel = el('button', 'sbtn', 'Cancel'); save.type = cancel.type = 'button';
   save.addEventListener('click', function () {
     if (!String(p.name || '').trim()) { say('Give the project a name.'); return; } if (!p.src) { say('Add a thumbnail.'); return; }
+    p.slug = String(p.slug || '').trim(); if (p.slug && !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(p.slug)) { say('Use lowercase letters, numbers and hyphens for the page address, for example offgrid-recovery-max-jar.'); return; }
     if (p.featured && !p.feature) { say('Add a tall image for Featured work, or untick Show in Featured work.'); return; }
     save.disabled = true; say('Saving.');
     api('/api/projects', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) })
