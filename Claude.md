@@ -2,7 +2,7 @@
 
 Portfolio for Freddie Cooper, a 3D product designer in Abuja, Nigeria (product visualization and industrial design).
 Static HTML, CSS and plain JavaScript, plus Vercel serverless functions in `api/`. No build step and no framework.
-Deployed on Vercel from `main` (`vercel.json` turns on clean URLs, so `/projects` serves `projects.html`).
+Deployed on Vercel from `main` (`vercel.json` turns on clean URLs, so `/work` serves `work.html`; it also redirects `/projects` to `/work`).
 
 ## Run it
 - Page and style work: VS Code **Live Server** on `index.html`, or `python -m http.server`.
@@ -11,8 +11,10 @@ Deployed on Vercel from `main` (`vercel.json` turns on clean URLs, so `/projects
 
 ## Pages
 - `index.html` home: split hero with a divider slider, Now working on, Featured work, Skills and tools, How I work, About, contact.
-- `projects.html` all projects, filterable by product visualization and industrial design, plus Now working on.
-- `case-study.html?p=<project id>` the case study for one project (Story and Presentation views). With no `p` it shows the first project that has one.
+- `work.html` (`/work`) all projects, filterable by product visualization and industrial design, plus Now working on.
+- `work/<slug>.html` (`/work/<slug>`) one static page per project, for search engines. Written by hand from the project data.
+- `product-visualization.html`, `industrial-design.html` service pages linking to their projects. `about.html` the full About.
+- `case-study.html?p=<project id>` the interactive case study (Story and Presentation views), `noindex`; the A.R.C.S project page links to it.
 - `start-a-project.html` six-step request form.
 - `wallpapers.html` wallpaper packs, free and premium (Paystack).
 - `dashboard.html` private, token protected, `noindex`. Not linked from the site.
@@ -24,7 +26,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 | Content | Dashboard tab | API | Fallback in content.js |
 |---|---|---|---|
 | Hero images, About, portrait, skills, How I work, Book a call link, page background colours (light and dark) | Home page | `api/site.js` (key `site:home`) | `hero`, `about`, `portrait`, `skills`, `process`, `contact.calendly`, `colors` |
-| Projects, Featured work, case studies | Projects | `api/projects.js` (`proj:<id>`, sorted set `projects`) | `projects` |
+| Projects (including `slug`, the /work page address), Featured work, case studies | Projects | `api/projects.js` (`proj:<id>`, sorted set `projects`) | `projects` |
 | Now working on (with optional image or video snippet) | Updates | `api/updates.js` | `updates` |
 | Wallpaper packs | Wallpapers | `api/wallpapers.js` | `wallpapers` |
 | Project requests (pipeline: new, talking, quoted, won, lost; value; private notes) | Requests | `api/requests.js` | none |
@@ -56,9 +58,19 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 - Respect `prefers-reduced-motion` (intro animations, ripple grid and looping snippets stay still).
 - Keep pages working at phone width with no sideways scroll.
 
+## SEO (static pages, kept in step by hand)
+- Every indexable page has one `<title>`, meta description, canonical (full `https://freddie-cooper-portfolio.vercel.app/...` address) and JSON-LD. Use clean internal links (`/`, `/work`, `/about`), never `.html`.
+- Project pages are static copies of dashboard data. When you add, rename or remove a project: add or edit `work/<slug>.html`
+  (copy an existing one), set the same Page address (slug) in the dashboard, and update `sitemap.xml`, the ItemList in `work.html`,
+  the static links in `index.html` (`#g5`) and `work.html` (`#grid`), the service page grid, and the More work links on related project pages.
+- A project with a slug links to `/work/<slug>` (`projectHref()` in `js/live.js`); without one it falls back to its case study or link.
+- `index.html` preloads the first hero image of each side; update those two `<link rel="preload">` tags when you change them in the dashboard.
+- `robots.txt` blocks `/api/`. Images in `/images` are cached for 7 days, not a year, because files there get replaced under the same name.
+- TODO comments in the new pages mark copy, share images and details still to add. Do not fill them with invented facts.
+
 ## Gotchas
 - `js/content.js` is a plain object literal: a missing comma breaks every page. Syntax-check it after editing (`node -e "new Function(require('fs').readFileSync('js/content.js','utf8'))"`).
-- Share previews in each page head use the live address, `https://freddie-cooper-portfolio.vercel.app`. Update them (and `SITE_URL`) if the site moves to its own domain.
+- Share previews and canonicals in each page head use the live address, `https://freddie-cooper-portfolio.vercel.app`. Update them (and `SITE_URL`) if the site moves to its own domain.
 - Vercel's Hobby plan allows at most 12 functions (files in `api/` not starting with `_`); a 13th makes every deploy fail. Add new endpoints to an existing file (as `?view=sales` in `stats.js`) rather than a new file.
 - Never commit `.env` files. `.env.example` lists every variable: Resend, KV, `DASHBOARD_TOKEN`, `TRACK_SALT`, Paystack, `SITE_URL`, `DOWNLOAD_SECRET`, `BLOB_READ_WRITE_TOKEN`.
 - `dashboard-files/` and `freddie-cooper-site-update1/` are old copies kept for reference and are git-ignored. Do not edit them.
