@@ -3,7 +3,7 @@
 function getJSON(url) { return fetch(url, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
 function loadProjects() { return getJSON('/api/projects').then(function (j) { return (j && j.items && j.items.length ? j.items : SITE.projects).filter(function (p) { return p.visible !== false; }); }); }
 /* Where a project opens: its case study, else its own link, else nowhere. */
-function projectHref(p) { return p.caseStudy && p.caseStudy.on !== false ? 'case-study.html?p=' + encodeURIComponent(p.id) : (p.link || ''); }
+function projectHref(p) { return p.caseStudy && p.caseStudy.on !== false ? '/case-study?p=' + encodeURIComponent(p.id) : (p.link || ''); }
 /* Thumbnails show the grey image and fade to the colour version on hover. A missing colour file is dropped, so it stays grey. */
 function colourLayer(box, src) {
   if (!src) return; var c = document.createElement('img'); c.className = 'clr'; c.alt = ''; c.setAttribute('aria-hidden', 'true');
@@ -65,7 +65,7 @@ function renderStrip() {
   loadWallpapers().then(function (items) {
     box.textContent = '';
     items.filter(function (w) { return w.visible !== false; }).slice(0, 4).forEach(function (w) {
-      var a = mk('a', 'wcard'); a.href = 'wallpapers.html';
+      var a = mk('a', 'wcard'); a.href = '/wallpapers';
       var m = mk('div', 'mosaic'); (w.images || []).slice(0, 4).forEach(function (im) { var i = document.createElement('img'); i.src = im.preview; i.alt = ''; m.appendChild(i); });
       var meta = mk('div', 'wmeta'); meta.appendChild(mk('span', 'lbl', 'Pack of ' + (w.images || []).length)); meta.appendChild(mk('span', 'wprice', money(w.price, w.currency)));
       a.appendChild(m); a.appendChild(meta); a.appendChild(mk('h3', 'wnm', w.name)); box.appendChild(a);

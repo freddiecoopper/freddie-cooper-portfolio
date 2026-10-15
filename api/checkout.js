@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
     if (!w || w.visible === false || !(w.price > 0) || !w.file) return res.status(404).json({ ok: false, error: 'Not available' });
     const ref = 'wp_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
     const r = await fetch('https://api.paystack.co/transaction/initialize', { method: 'POST', headers: { Authorization: 'Bearer ' + process.env.PAYSTACK_SECRET_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, amount: Math.round(w.price * 100), currency: w.currency, reference: ref, callback_url: site() + '/wallpapers.html?paid=1&ref=' + ref, metadata: { wallpaperId: w.id, name: w.name } }) });
+      body: JSON.stringify({ email: email, amount: Math.round(w.price * 100), currency: w.currency, reference: ref, callback_url: site() + '/wallpapers?paid=1&ref=' + ref, metadata: { wallpaperId: w.id, name: w.name } }) });
     const j = await r.json();
     if (!r.ok || !j.status) return res.status(502).json({ ok: false, error: 'Could not start checkout' });
     return res.status(200).json({ ok: true, url: j.data.authorization_url, ref: ref });

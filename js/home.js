@@ -97,7 +97,7 @@ function renderFeatured(list) {
   FEATURED = list.filter(function (p) { return p.featured && p.feature; }).slice(0, 5);
   var g = el.g5; g.textContent = '';
   FEATURED.forEach(function (p, i) {
-    var href = projectHref(p) || 'projects.html', a = document.createElement('a'); a.className = 'wp'; a.href = href; a.setAttribute('data-zone', p.kind);
+    var href = projectHref(p) || '/work', a = document.createElement('a'); a.className = 'wp'; a.href = href; a.setAttribute('data-zone', p.kind);
     var ph = document.createElement('span'); ph.className = 'ph' + (p.featureFade === false ? '' : ' fd');
     var im = document.createElement('img'); im.src = p.feature; im.alt = p.alt || (p.name + ' render'); ph.appendChild(im); colourLayer(ph, p.featureColor);
     var l = document.createElement('span'); l.className = 'lbl wl'; l.textContent = (i < 9 ? '0' : '') + (i + 1) + ' ' + p.name;

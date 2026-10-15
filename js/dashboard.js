@@ -369,7 +369,7 @@ function openProj(src) {
   if (p.featureFade == null) p.featureFade = true;
   g2.appendChild(checkField('Show in Featured work', p, 'featured', drawFeat)); g2.appendChild(fwrap); drawFeat(); box.appendChild(g2);
 
-  var g3 = group('Case study', 'A page for this project with a Story view and a Presentation view. Its address is case-study.html?p=' + (p.id || 'the-project-id') + '.');
+  var g3 = group('Case study', 'A page for this project with a Story view and a Presentation view. Its address is /case-study?p=' + (p.id || 'the-project-id') + '.');
   var cwrap = el('div', 'edsub'), lwrap = el('div', 'edsub'), state = { on: !!p.caseStudy }, kept = p.caseStudy || null;
   function drawCase() {
     cwrap.textContent = ''; lwrap.textContent = '';

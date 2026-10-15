@@ -55,7 +55,7 @@ function build(p) {
 function missing() {
   var st = $('story'); st.textContent = ''; var w = h('div', 'in'); w.style.padding = 'clamp(48px,9vw,110px) 0';
   var t = h('h1', 'd', 'Case study not found.'); t.style.fontSize = 'clamp(40px,6vw,88px)'; w.appendChild(t);
-  var p = h('p', 'body', 'It may have moved or been taken down. '); var a = h('a', 'back', 'See all projects'); a.href = 'projects.html'; p.style.marginTop = '28px'; p.appendChild(a); w.appendChild(p); st.appendChild(w);
+  var p = h('p', 'body', 'It may have moved or been taken down. '); var a = h('a', 'back', 'See all projects'); a.href = '/work'; p.style.marginTop = '28px'; p.appendChild(a); w.appendChild(p); st.appendChild(w);
   $('bPres').style.display = 'none';
 }
 var want = new URLSearchParams(location.search).get('p');
