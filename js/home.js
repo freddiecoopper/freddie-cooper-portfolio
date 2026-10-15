@@ -55,7 +55,8 @@ function cellList(box, items) { box.textContent = ''; (items || []).forEach(func
 function applyHome(h) {
   HERO = { viz: (h.hero && h.hero.viz) || [], id: (h.hero && h.hero.id) || [] };
   buildStack($('stackL'), HERO.viz); buildStack($('stackR'), HERO.id); heroRender();
-  $('about').textContent = h.about || '';
+  /* the home page keeps the first two sentences; the full text is on /about */
+  $('about').textContent = (String(h.about || '').match(/[^.!?]+[.!?]+/g) || [h.about || '']).slice(0, 2).join('').trim();
   if (h.portrait && h.portrait.src) { $('portrait').src = h.portrait.src; $('portrait').alt = h.portrait.alt || 'Portrait of Freddie Cooper'; }
   cellList($('skL'), h.skills && h.skills.viz); cellList($('skR'), h.skills && h.skills.id);
   var st = $('steps'), steps = h.process || []; st.textContent = ''; st.style.gridTemplateColumns = 'repeat(' + Math.max(1, Math.min(steps.length, 4)) + ',1fr)';
