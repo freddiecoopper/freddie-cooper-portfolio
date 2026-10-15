@@ -131,3 +131,12 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{ou
 .hpinfo{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 32px}
 .hpread{font-size:14px;color:var(--m)}
 .hpsize{display:flex;align-items:center;gap:14px;flex:1;min-width:220px;max-width:420px}
+
+/* Home page tab: page background colours (colorField in js/dashboard.js) */
+.cfrow{display:flex;align-items:center;gap:16px;margin-top:6px}
+.cfpick{flex:none;width:52px;height:44px;padding:0;border:1px solid var(--line);background:none;cursor:pointer}
+.cfpick::-webkit-color-swatch-wrapper{padding:4px}.cfpick::-webkit-color-swatch{border:0}.cfpick::-moz-color-swatch{border:0}
+.cfcode{flex:1;min-width:0;max-width:160px;text-transform:lowercase;letter-spacing:.04em}
+.cfs{display:flex;align-items:center;gap:16px;margin-top:14px;padding:20px;border:1px solid var(--line)}
+.cfst{font-size:20px;font-weight:300}.cfhr{flex:1;height:1px}.cfsl{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--o)}
+.hintp.warn{color:var(--o)}

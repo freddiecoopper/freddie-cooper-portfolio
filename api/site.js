@@ -1,9 +1,11 @@
 /* /api/site   the home page content edited in the dashboard's Home page tab
    GET    public: { home } or { home: null } when nothing has been saved (the site then uses js/content.js)
-   POST   (token) save { hero: {viz, id}, about, portrait, skills: {viz, id}, process, calendly }
+   POST   (token) save { hero: {viz, id}, about, portrait, skills: {viz, id}, process, calendly, colors: {light, dark} }
+   colors are the page background in light and dark mode (#rrggbb), applied on every page by js/theme.js.
    Stored as one JSON value under the key site:home.                                                    */
 const { kv, authed, body, cut } = require('./_lib');
 const URL_OK = (v) => !v || /^(https:\/\/|\/|images\/)/.test(v);
+const hex = (v, d) => (/^#[0-9a-f]{6}$/i.test(String(v || '')) ? String(v).toLowerCase() : d);
 const num = (v, d, lo, hi) => { const n = Number(v); return isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
 
 function clean(b) {
@@ -17,7 +19,8 @@ function clean(b) {
     portrait: { src: cut(b.portrait && b.portrait.src, 800), alt: cut(b.portrait && b.portrait.alt, 200) },
     skills: { viz: words(b.skills && b.skills.viz), id: words(b.skills && b.skills.id) },
     process: (Array.isArray(b.process) ? b.process : []).slice(0, 8).map((p) => ({ title: cut(p && p.title, 40), text: cut(p && p.text, 300) })).filter((p) => p.title || p.text),
-    calendly: cut(b.calendly, 400)
+    calendly: cut(b.calendly, 400),
+    colors: { light: hex(b.colors && b.colors.light, '#d6d6d6'), dark: hex(b.colors && b.colors.dark, '#1c1c1c') }
   };
   const urls = home.hero.viz.concat(home.hero.id).map((h) => h.src).concat([home.portrait.src, home.calendly]);
   if (urls.some((u) => !URL_OK(u))) return { error: 'Each image and link must be an https address or an images/ path' };

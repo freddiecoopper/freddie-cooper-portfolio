@@ -34,6 +34,7 @@ function buildTabs() {
 }
 function showTab(t) {
   S.tab = t; TABS.forEach(function (x) { $(x[0] + 'Panel').hidden = x[0] !== t; }); buildTabs(); say('');
+  if (t !== 'home' && window.fcPaint) window.fcPaint(null);   /* drop unsaved background colours tried on the Home page tab */
   if (t === 'traffic') loadTraffic(); if (t === 'home') loadHomeTab(); if (t === 'proj') loadProj(); if (t === 'wp') loadWp(); if (t === 'sales') loadSales(); if (t === 'up') loadUp();
 }
 /* ---- requests: an inbox that doubles as a simple sales pipeline ---- */
@@ -422,7 +423,34 @@ function openProj(src) {
 /* ---- home page: hero images, About, skills, How I work, Book a call ---- */
 function builtInHome() {
   var B = window.SITE || {};
-  return JSON.parse(JSON.stringify({ hero: B.hero || { viz: [], id: [] }, about: B.about || '', portrait: B.portrait || { src: '', alt: '' }, skills: B.skills || { viz: [], id: [] }, process: B.process || [], calendly: (B.contact && B.contact.calendly) || '' }));
+  return JSON.parse(JSON.stringify({ hero: B.hero || { viz: [], id: [] }, about: B.about || '', portrait: B.portrait || { src: '', alt: '' }, skills: B.skills || { viz: [], id: [] }, process: B.process || [], calendly: (B.contact && B.contact.calendly) || '', colors: B.colors || BG_DEF }));
+}
+
+/* ---- page background colours ---- */
+/* Defaults and the text and hairline colours of each mode, as in css/theme.css. */
+var BG_DEF = { light: '#d6d6d6', dark: '#1c1c1c' }, MODE_INK = { light: { t: '#000000', line: '#ffffff' }, dark: { t: '#f2f2f2', line: '#3a3a3a' } };
+function lum(hex) { var c = [1, 3, 5].map(function (i) { var v = parseInt(hex.substr(i, 2), 16) / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
+function contrast(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+/* One mode's background: a picker, the #rrggbb code, a sample of the page in that colour and a readability check. */
+function colorField(label, obj, mode, onChange) {
+  var w = el('div', 'f'), row = el('div', 'cfrow'), pick = el('input', 'cfpick'), code = el('input', 'fld cfcode'), def = el('button', 'sbtn', 'Default'), note = el('p', 'hintp');
+  var ink = MODE_INK[mode], sample = el('div', 'cfs'), st = el('span', 'cfst', 'Featured work'), sl = el('span', 'cfsl', 'Start a project'), hr = el('i', 'cfhr');
+  sample.appendChild(st); sample.appendChild(hr); sample.appendChild(sl); st.style.color = ink.t; hr.style.background = ink.line;
+  pick.type = 'color'; code.type = 'text'; code.maxLength = 7; code.spellcheck = false; def.type = 'button';
+  pick.setAttribute('aria-label', label + ', colour picker'); code.setAttribute('aria-label', label + ', colour code');
+  function set(v, from) {
+    v = v.toLowerCase(); obj[mode] = v; if (from !== 'pick') pick.value = v; if (from !== 'code') code.value = v; sample.style.background = v;
+    var r = contrast(v, ink.t), lines = contrast(v, ink.line) < 1.2;
+    note.textContent = 'Text contrast ' + r.toFixed(1) + ':1. ' + (r < 4.5 ? 'Too low to read comfortably; try a ' + (mode === 'dark' ? 'darker' : 'lighter') + ' colour.' : 'Easy to read.') + (lines ? ' The hairline dividers will be hard to see on this colour.' : '');
+    note.classList.toggle('warn', r < 4.5 || lines); if (onChange) onChange();
+  }
+  pick.addEventListener('input', function () { set(pick.value, 'pick'); });
+  code.addEventListener('input', function () { var v = code.value.trim(); if (v && v[0] !== '#') v = '#' + v; if (/^#[0-9a-f]{6}$/i.test(v)) set(v, 'code'); });
+  code.addEventListener('blur', function () { code.value = obj[mode]; });
+  def.addEventListener('click', function () { set(BG_DEF[mode]); });
+  row.appendChild(pick); row.appendChild(code); row.appendChild(def);
+  w.appendChild(el('span', 'lbl', label)); w.appendChild(row); w.appendChild(sample); w.appendChild(note);
+  set(obj[mode] || BG_DEF[mode]); return w;
 }
 function loadHomeTab(done) {
   say('Loading.');
@@ -520,6 +548,11 @@ function heroPreview(h, form) {
 function openHome(h) {
   var f = $('homeForm'); f.textContent = ''; var box = el('div', 'ed wide');
   h.hero = h.hero || {}; h.hero.viz = h.hero.viz || []; h.hero.id = h.hero.id || [];
+  h.colors = Object.assign({}, BG_DEF, h.colors || {});
+  var gb = group('Page background', 'The background of every page, in light mode and in dark mode. This dashboard switches to your colours as you pick them so you can judge them full size; the site changes within a minute of saving. Use the moon or sun button at the bottom right to see the other mode.');
+  var paint = function () { if (window.fcPaint) window.fcPaint(h.colors); };
+  var rb = el('div', 'edrow two'); rb.appendChild(colorField('Light mode', h.colors, 'light', paint)); rb.appendChild(colorField('Dark mode', h.colors, 'dark', paint)); gb.appendChild(rb);
+  box.appendChild(gb); paint();
   var hp = heroPreview(h, f), later = 0;
   function refresh() { clearTimeout(later); later = setTimeout(hp.redraw, 0); }   /* also runs after adding, removing or reordering images */
   box.appendChild(hp);
@@ -557,7 +590,7 @@ function openHome(h) {
     if (!out.hero.viz.length && !out.hero.id.length) { say('Add at least one hero image.'); return; }
     save.disabled = true; say('Saving.');
     api('/api/site', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(out) })
-      .then(function () { loadHomeTab('Saved. The home page updates within a minute.'); }).catch(function (e) { say(e.message); save.disabled = false; });
+      .then(function () { if (window.fcPaint) window.fcPaint(out.colors, true); loadHomeTab('Saved. The site updates within a minute.'); }).catch(function (e) { say(e.message); save.disabled = false; });
   });
   reset.addEventListener('click', function () { loadHomeTab(); });
   box.querySelectorAll('.rep').forEach(function (r) { r.classList.add('rep2'); });

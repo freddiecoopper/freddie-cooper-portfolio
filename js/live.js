@@ -14,7 +14,8 @@ function siteHome(saved) {
   var b = { hero: SITE.hero, about: SITE.about, portrait: SITE.portrait, skills: SITE.skills, process: SITE.process, calendly: SITE.contact && SITE.contact.calendly };
   return saved ? Object.assign(b, saved) : b;
 }
-function loadHome() { return getJSON('/api/site').then(function (j) { return siteHome(j && j.home); }); }
+/* js/theme.js has already asked /api/site (for the page colours) as window.fcSite, so reuse that answer. */
+function loadHome() { return (window.fcSite || getJSON('/api/site')).then(function (j) { return siteHome(j && j.home); }); }
 function loadUpdates() { return getJSON('/api/updates').then(function (j) { return j && j.items && j.items.length ? j.items : SITE.updates; }); }
 function loadWallpapers() { return getJSON('/api/wallpapers').then(function (j) { return j && j.items && j.items.length ? j.items : SITE.wallpapers; }); }
 function money(p, c) { return p > 0 ? new Intl.NumberFormat('en-US', { style: 'currency', currency: c || 'USD', minimumFractionDigits: p % 1 ? 2 : 0 }).format(p) : 'Free'; }

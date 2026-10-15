@@ -23,7 +23,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 
 | Content | Dashboard tab | API | Fallback in content.js |
 |---|---|---|---|
-| Hero images, About, portrait, skills, How I work, Book a call link | Home page | `api/site.js` (key `site:home`) | `hero`, `about`, `portrait`, `skills`, `process`, `contact.calendly` |
+| Hero images, About, portrait, skills, How I work, Book a call link, page background colours (light and dark) | Home page | `api/site.js` (key `site:home`) | `hero`, `about`, `portrait`, `skills`, `process`, `contact.calendly`, `colors` |
 | Projects, Featured work, case studies | Projects | `api/projects.js` (`proj:<id>`, sorted set `projects`) | `projects` |
 | Now working on (with optional image or video snippet) | Updates | `api/updates.js` | `updates` |
 | Wallpaper packs | Wallpapers | `api/wallpapers.js` | `wallpapers` |
@@ -31,6 +31,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 | Traffic | Traffic | `api/stats.js`, `api/track.js` | none |
 | Sales | Sales | `api/stats.js?view=sales`, `api/checkout.js`, `api/paystack-webhook.js`, `api/download.js` | none |
 
+- Page background colours are applied on every page by `js/theme.js` (CSS vars `--bg-l` / `--bg-d` on `.p`, cached in localStorage `fc-colors`). It fetches `/api/site` once as `window.fcSite`, which `loadHome()` reuses.
 - `js/live.js` loads the API data for the public pages (`loadProjects`, `loadHome`, `loadUpdates`, `loadWallpapers`) and falls back to `SITE`.
 - `api/upload.js` stores dashboard uploads in Vercel Blob (`@vercel/blob`, the only package, in `package.json`).
   Vercel caps a request at 4.5 MB, so the dashboard resizes large images in the browser and rejects videos over 4.4 MB.
