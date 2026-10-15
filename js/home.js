@@ -28,7 +28,8 @@ function buildStack(el, list) {
   el.textContent = '';
   list.forEach(function (im) {
     var w = document.createElement('div'); w.className = 'hiw';
-    var i = document.createElement('img'); i.className = 'hi'; i.src = im.src; i.alt = im.alt || '';
+    /* alt comes from the image's Description in the dashboard; without one, its caption describes it */
+    var i = document.createElement('img'); i.className = 'hi'; i.src = im.src; i.alt = im.alt || im.caption || '';
     i.style.left = (im.x || 0) + '%'; i.style.top = (im.y || 0) + '%'; i.style.width = (im.w == null ? 100 : im.w) + '%';
     w.appendChild(i); el.appendChild(w);
   });
@@ -37,6 +38,7 @@ function showStack(el, list, active, left) {
   Array.prototype.forEach.call(el.children, function (w, n) {
     var im = list[n], x = im.x || 0, ww = im.w == null ? 100 : im.w, T = left ? 102 - x : x + ww + 2;
     w.style.transform = n === active ? 'none' : 'translateX(' + (left ? '' : '-') + T + '%)';
+    w.setAttribute('aria-hidden', n === active ? 'false' : 'true');   /* screen readers only hear the image on show */
   });
 }
 var heroStep = 0;

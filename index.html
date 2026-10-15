@@ -106,6 +106,10 @@
 <link rel="icon" href="images/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#d6d6d6">
+<!-- Hero: preload the first image of each side, as set in the dashboard's Home page tab.
+     Update these two when you change the first hero image on either side. -->
+<link rel="preload" as="image" type="image/webp" href="https://daphfarvcz4z7qoj.public.blob.vercel-storage.com/site/9-Py71FRqGRx4RHNExLZabq9QEvmXnXD.webp" fetchpriority="high">
+<link rel="preload" as="image" type="image/png" href="/images/hero/industrial-design/1-arcs-clay.png" fetchpriority="high">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500&display=swap">
 <link rel="stylesheet" href="css/home.css">
 <link rel="stylesheet" href="css/theme.css">
@@ -126,8 +130,8 @@
 <input class="srange" type="range" min="0" max="100" step="1" id="slider" value="50" aria-label="Move the divider: product visualization on the left, industrial design on the right">
 <div class="hl shint"><span class="m-hide">Drag to explore. Slide fully to one side to focus the site.</span><span class="m-only">Drag to compare</span></div>
 </div>
-<div class="hc hcl" id="hcl" style="width:50%"><div class="hl hhd rv">01 / Product visualization</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl m-hide">Featured work</div><p class="hcp"><span id="capL"></span></p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
-<div class="hc hcr" id="hcr" style="width:50%"><div class="hl hhd rv">02 / Industrial design</div><a class="hcap rv" href="#work"><div class="hfw"><div class="hl m-hide">Featured work</div><p class="hcp"><span id="capR"></span></p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
+<div class="hc hcl" id="hcl" style="width:50%"><div class="hl hhd rv"><a class="hsvc" href="/product-visualization">01 / Product visualization</a></div><a class="hcap rv" href="/product-visualization"><div class="hfw"><div class="hl m-hide">Featured work</div><p class="hcp"><span id="capL"></span></p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
+<div class="hc hcr" id="hcr" style="width:50%"><div class="hl hhd rv"><a class="hsvc" href="/industrial-design">02 / Industrial design</a></div><a class="hcap rv" href="/industrial-design"><div class="hfw"><div class="hl m-hide">Featured work</div><p class="hcp"><span id="capR"></span></p></div><span class="harr" aria-hidden="true">&rarr;</span></a></div>
 <a class="btn hbtn" href="/start-a-project">Start a project</a>
 </div></section>
 <div class="in"><div class="hr"></div></div>

@@ -155,6 +155,7 @@ button.btn{font-family:inherit;cursor:pointer}.btn[disabled]{opacity:.35;pointer
 @media (prefers-reduced-motion:reduce){.wimg img{transition:none}.wcard:hover .wimg img{transform:none}}
 
 .cmp[hidden]{display:none}
+.hhd a.hsvc{color:inherit;text-decoration:none;pointer-events:auto;transition:color .5s}.hhd a.hsvc:hover{color:var(--o)}
 .foot{display:flex;justify-content:space-between;gap:20px 32px;padding:32px 0 48px}
 
 /* ---- Phones and small tablets. This block comes last on purpose: it settles the earlier
