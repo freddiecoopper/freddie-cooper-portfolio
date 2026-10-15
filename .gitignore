@@ -6,3 +6,6 @@ node_modules/
 dashboard-files/
 freddie-cooper-site-update1/
 .claude/settings.local.json
+# SEO audit pack and notes: reference only, not part of the site
+studio-cooper-seo/
+SEO-PLAN.md
