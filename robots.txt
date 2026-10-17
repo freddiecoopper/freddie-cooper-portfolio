@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://freddie-cooper-portfolio.vercel.app/sitemap.xml
+Sitemap: https://frddycppr.com/sitemap.xml

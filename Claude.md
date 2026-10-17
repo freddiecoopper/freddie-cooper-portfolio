@@ -59,7 +59,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 - Keep pages working at phone width with no sideways scroll.
 
 ## SEO (static pages, kept in step by hand)
-- Every indexable page has one `<title>`, meta description, canonical (full `https://freddie-cooper-portfolio.vercel.app/...` address) and JSON-LD. Use clean internal links (`/`, `/work`, `/about`), never `.html`.
+- Every indexable page has one `<title>`, meta description, canonical (full `https://frddycppr.com/...` address) and JSON-LD. Use clean internal links (`/`, `/work`, `/about`), never `.html`.
 - Project pages are static copies of dashboard data. When you add, rename or remove a project: add or edit `work/<slug>.html`
   (copy an existing one), set the same Page address (slug) in the dashboard, and update `sitemap.xml`, the ItemList in `work.html`,
   the static links in `index.html` (`#g5`) and `work.html` (`#grid`), the service page grid, and the More work links on related project pages.
@@ -70,7 +70,7 @@ used when nothing has been saved yet or the API is unreachable. Before changing 
 
 ## Gotchas
 - `js/content.js` is a plain object literal: a missing comma breaks every page. Syntax-check it after editing (`node -e "new Function(require('fs').readFileSync('js/content.js','utf8'))"`).
-- Share previews and canonicals in each page head use the live address, `https://freddie-cooper-portfolio.vercel.app`. Update them (and `SITE_URL`) if the site moves to its own domain.
+- Share previews and canonicals in each page head use the live address, `https://frddycppr.com`. Update them (and `SITE_URL`) if the site moves to its own domain.
 - Vercel's Hobby plan allows at most 12 functions (files in `api/` not starting with `_`); a 13th makes every deploy fail. Add new endpoints to an existing file (as `?view=sales` in `stats.js`) rather than a new file.
 - Never commit `.env` files. `.env.example` lists every variable: Resend, KV, `DASHBOARD_TOKEN`, `TRACK_SALT`, Paystack, `SITE_URL`, `DOWNLOAD_SECRET`, `BLOB_READ_WRITE_TOKEN`.
 - `dashboard-files/` and `freddie-cooper-site-update1/` are old copies kept for reference and are git-ignored. Do not edit them.

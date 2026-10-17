@@ -29,7 +29,7 @@ Open the folder in VS Code and start **Live Server** on `index.html` (or run `py
 - Slide the hero divider fully right for a product visualization only site, fully left for industrial design only. The slider position is remembered for the form and projects pages.
 - Light and dark mode, the ripple switch and Back to top share one bar at the bottom right. The theme choice is saved.
 - The home page no longer has a Wallpapers section; every page links to `wallpapers.html` from the footer.
-- Share previews: each public page has a description and a preview image (`images/og.jpg`). They point at `https://freddie-cooper-portfolio.vercel.app`; change the page heads if the site moves to its own domain.
+- Share previews: each public page has a description and a preview image (`images/og.jpg`). They point at `https://frddycppr.com`; change the page heads if the site moves to its own domain.
 - The ripple grid follows the cursor and fades near text. Toggle it in the control bar at the bottom right.
 - Respects `prefers-reduced-motion`.
 

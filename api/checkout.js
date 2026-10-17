@@ -1,6 +1,6 @@
 /* POST /api/checkout   {id, email}
    Starts a Paystack payment for a premium wallpaper pack and returns {url} to send the buyer to.
-   Needs PAYSTACK_SECRET_KEY and SITE_URL (for example https://freddie-cooper-portfolio.vercel.app).
+   Needs PAYSTACK_SECRET_KEY and SITE_URL (for example https://frddycppr.com).
    The price comes from the saved pack, never from the browser.                                  */
 const { kv, body, cut, site } = require('./_lib');
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
