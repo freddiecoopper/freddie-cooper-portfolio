@@ -1,6 +1,7 @@
 /* Theme. Change the colors here. The page backgrounds can also be set in the dashboard (Home page tab):
-   js/theme.js puts them on .p as --bg-l (light) and --bg-d (dark); these defaults apply when none are saved. */
-.p{--o:#df4d1c;--t:#000000;--pw:2200px;--line:#ffffff;--bg:var(--bg-l,#d6d6d6);background:var(--bg)}
+   js/theme.js puts them on .p as --bg-l (light) and --bg-d (dark); these defaults apply when none are saved.
+   --pw is the page width: 1360px = 1280px of content plus the 40px side gutters, the usual desktop maximum. */
+.p{--o:#df4d1c;--t:#000000;--pw:1360px;--line:#ffffff;--bg:var(--bg-l,#d6d6d6);background:var(--bg)}
 .p.dark{--t:#f2f2f2;--line:#3a3a3a;--bg:var(--bg-d,#1c1c1c)}
 body{margin:0}
 .ttog{position:fixed;right:84px;bottom:28px;z-index:6;background:none;border:0;padding:8px 0;font-family:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--l);cursor:pointer;transition:color .5s}
