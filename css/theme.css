@@ -1,7 +1,7 @@
 /* Theme. Change the colors here. The page backgrounds can also be set in the dashboard (Home page tab):
    js/theme.js puts them on .p as --bg-l (light) and --bg-d (dark); these defaults apply when none are saved.
-   --pw is the page width: 1360px = 1280px of content plus the 40px side gutters, the usual desktop maximum. */
-.p{--o:#df4d1c;--t:#000000;--pw:1360px;--line:#ffffff;--bg:var(--bg-l,#d6d6d6);background:var(--bg)}
+   --pw caps the page width on very wide screens; below that, content runs edge to edge inside the --g gutter. */
+.p{--o:#df4d1c;--t:#000000;--pw:2000px;--line:#ffffff;--bg:var(--bg-l,#d6d6d6);background:var(--bg)}
 .p.dark{--t:#f2f2f2;--line:#3a3a3a;--bg:var(--bg-d,#1c1c1c)}
 body{margin:0}
 .ttog{position:fixed;right:84px;bottom:28px;z-index:6;background:none;border:0;padding:8px 0;font-family:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--l);cursor:pointer;transition:color .5s}
@@ -42,9 +42,9 @@ body{margin:0}
   .p{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
 }
 /* .swipe: a row of filter or tab buttons that scrolls sideways on a phone instead of wrapping.
-   It runs to the screen edges (--g is the page gutter) so it is clear there is more to swipe. */
+   It runs to the screen edges (through the --g gutter) so it is clear there is more to swipe. */
 @media (max-width:760px){
-  .swipe{--g:22px;display:flex;flex-wrap:nowrap!important;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin-left:calc(-1 * var(--g));margin-right:calc(-1 * var(--g));padding-left:var(--g);padding-right:var(--g);scroll-padding-left:var(--g)}
+  .swipe{display:flex;flex-wrap:nowrap!important;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;margin-left:calc(-1 * var(--g));margin-right:calc(-1 * var(--g));padding-left:var(--g);padding-right:var(--g);scroll-padding-left:var(--g)}
   .swipe::-webkit-scrollbar{display:none}
   .swipe>*{flex:none;white-space:nowrap}
 }
@@ -63,3 +63,28 @@ body{margin:0}
 .upclose:hover{color:var(--o)}.upclose:focus-visible{outline:2px solid var(--o);outline-offset:4px}
 @media (max-width:760px){.uprow.has-media{grid-template-columns:1fr}.upmedia{width:100%;max-width:320px}}
 @media (prefers-reduced-motion:reduce){.upmedia img,.upmedia video{transition:none}.upmedia:hover img,.upmedia:hover video{transform:none}}
+
+/* ---- Full-width layout and the column grid ----
+   Content runs the full width of the screen inside the gutter --g (up to --pw on very wide screens).
+   A 4-column hairline grid runs behind every page (only the edge lines on phones); sections line up on it.
+   The dashboard opts out with class="p nogrid". */
+.p{--g:clamp(20px,3vw,56px);position:relative;isolation:isolate}
+.p .in{padding-left:var(--g);padding-right:var(--g)}
+.p::before{content:"";position:absolute;top:0;bottom:0;z-index:-1;pointer-events:none;
+  left:max(var(--g),calc((100% - var(--pw)) / 2 + var(--g)));right:max(var(--g),calc((100% - var(--pw)) / 2 + var(--g)));
+  --gl:color-mix(in srgb,var(--line) 75%,transparent);
+  background:linear-gradient(var(--gl),var(--gl)) 0 0/1px 100% no-repeat,linear-gradient(var(--gl),var(--gl)) 25% 0/1px 100% no-repeat,
+    linear-gradient(var(--gl),var(--gl)) 50% 0/1px 100% no-repeat,linear-gradient(var(--gl),var(--gl)) 75% 0/1px 100% no-repeat,
+    linear-gradient(var(--gl),var(--gl)) 100% 0/1px 100% no-repeat}
+@media (max-width:760px){.p::before{background:linear-gradient(var(--gl),var(--gl)) 0 0/1px 100% no-repeat,linear-gradient(var(--gl),var(--gl)) 100% 0/1px 100% no-repeat}}
+.p.nogrid::before{display:none}
+/* Now working on: on desktop each update sits on the 4 columns (date and status, text across two, picture) */
+@media (min-width:1101px){
+  .p .uprow,.p .uprow.has-media{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:auto 1fr;column-gap:0}
+  .p .uprow>*{padding-right:clamp(16px,2vw,32px)}
+  .p .uprow>:nth-child(1){grid-column:1;grid-row:1}
+  .p .uprow>:nth-child(2){grid-column:1;grid-row:2;align-self:start}
+  .p .uprow>:nth-child(3){grid-column:2/4;grid-row:1/3}
+  .p .uprow:not(.has-media)>:nth-child(3){grid-column:2/5}
+  .p .uprow .upmedia{grid-column:4;grid-row:1/3;width:100%;max-width:none;padding:0}
+}

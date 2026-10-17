@@ -67,7 +67,24 @@ function applyHome(h) {
     d.appendChild(b); d.appendChild(l); d.appendChild(t); st.appendChild(d);
   });
   if (h.calendly) $('callBtn').href = h.calendly;
+  marquee([].concat((h.skills && h.skills.viz) || [], (h.skills && h.skills.id) || []));
 }
+/* Tools strip under the hero: every skill once (from the dashboard's Skills and tools), twice over so it loops */
+function marquee(list) {
+  var m = $('marq'), items = []; if (!m) return;
+  list.forEach(function (t) { if (t && items.indexOf(t) < 0) items.push(t); }); if (!items.length) return;
+  m.textContent = '';
+  for (var k = 0; k < 2; k++) {
+    var g = document.createElement('div'); g.className = 'marq-g'; if (k) g.setAttribute('aria-hidden', 'true');
+    items.forEach(function (t) { var s = document.createElement('span'); s.textContent = t; g.appendChild(s); }); m.appendChild(g);
+  }
+}
+/* Hero corner: the time in Abuja (WAT) */
+(function () {
+  var c = $('clock'); if (!c || !window.Intl) return;
+  var f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit' });
+  function tick() { c.textContent = f.format(new Date()) + ' WAT'; } tick(); setInterval(tick, 30000);
+})();
 var homeShown = '';
 function showHome(h) { var k = JSON.stringify(h); if (k === homeShown) return; homeShown = k; applyHome(h); }
 showHome(siteHome(null));
