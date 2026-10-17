@@ -23,7 +23,8 @@ module.exports = async function handler(req, res) {
     if (!made) return res.status(200).end();                       /* already handled, Paystack retries webhooks */
     await pipeline([['ZADD', 'sales', Date.now(), ref]]);
     const link = site() + '/api/download?ref=' + encodeURIComponent(ref) + '&sig=' + hmac(process.env.DOWNLOAD_SECRET || 'change-me', ref);
-    await mail({ to: sale.email, subject: 'Your wallpaper: ' + w.name, text: 'Thank you for your purchase.\n\nDownload ' + w.name + ' here:\n' + link + '\n\nThe link works for a limited number of downloads. Reply to this email if you have any trouble.\n\nFreddie Cooper' }).catch((e) => console.error('buyer mail', e.message));
+    /* replies from buyers go to the real mailbox (hello@, the sender, has no inbox) */
+    await mail({ to: sale.email, reply_to: 'Freddie Cooper <freddie@frddycppr.com>', subject: 'Your wallpaper: ' + w.name, text: 'Thank you for your purchase.\n\nDownload ' + w.name + ' here:\n' + link + '\n\nThe link works for a limited number of downloads. Reply to this email if you have any trouble.\n\nFreddie Cooper' }).catch((e) => console.error('buyer mail', e.message));
     if (process.env.TO_EMAIL) await mail({ to: process.env.TO_EMAIL, subject: 'New sale: ' + w.name, text: w.name + '\n' + sale.amount + ' ' + sale.currency + '\n' + sale.email + '\nRef ' + ref }).catch(() => {});
     return res.status(200).end();
   } catch (e) { console.error('webhook', e.message); return res.status(200).end(); }

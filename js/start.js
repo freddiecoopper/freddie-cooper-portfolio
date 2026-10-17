@@ -5,7 +5,7 @@
    answers to RECIPIENT. Until a real endpoint exists the request fails, and the page
    falls back to a mailto link with the answers filled into the body. */
 var ENDPOINT = '/api/start-project';
-var RECIPIENT = 'favour02fred@gmail.com';
+var RECIPIENT = 'freddie@frddycppr.com';
 
 var TOPICS = ['Product visualization', 'Product animation and simulation', 'Industrial design and mechanical modeling', 'Custom Blender tools', 'Consultation'];
 var NEEDS = ['Still renders', 'Product video', '360 spin', 'Physics simulation', 'Technical drawings', 'Source files', 'Not sure yet'];
