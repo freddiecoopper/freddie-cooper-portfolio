@@ -14,7 +14,7 @@ function render() {
   var g = document.getElementById('grid'); g.textContent = '';
   list.forEach(function (p, i) {
     var href = projectHref(p), a = document.createElement(href ? 'a' : 'div'); a.className = 'card'; if (href) a.href = href; a.style.animationDelay = (i * 0.07).toFixed(2) + 's';
-    var t = document.createElement('div'); t.className = 'thumb'; var im = document.createElement('img'); im.src = p.src; im.alt = p.alt || ''; t.appendChild(im); colourLayer(t, p.srcColor);
+    var t = document.createElement('div'); t.className = 'thumb'; var im = document.createElement('img'); if (i > 3) im.loading = 'lazy'; im.decoding = 'async'; im.src = p.src; im.alt = p.alt || ''; t.appendChild(im); colourLayer(t, p.srcColor);
     var meta = document.createElement('div'); meta.className = 'meta'; [pad(p.n), LABELS[p.kind]].forEach(function (x) { var s = document.createElement('span'); s.className = 'lbl'; s.textContent = x; meta.appendChild(s); });
     var h = document.createElement('h2'); h.className = 'nm'; h.textContent = p.name; var bl = document.createElement('p'); bl.className = 'bl'; bl.textContent = p.blurb || '';
     [t, meta, h, bl].forEach(function (x) { a.appendChild(x); }); g.appendChild(a);

@@ -238,18 +238,24 @@ function renderSales() {
 
 /* ---- uploads: images and videos go to /api/upload (Vercel Blob) and come back as an address ---- */
 var UPLOAD_MAX = 4.4 * 1024 * 1024;   /* Vercel's request limit is 4.5 MB */
+var SHRINK_OVER = 400 * 1024;   /* images bigger than this are re-encoded as WebP before upload, so pages stay fast */
 function shrink(file) {
-  /* Images over the limit are resized in the browser (longest side 2560px, then smaller) before upload. */
-  if (file.size <= UPLOAD_MAX || !/^image\/(jpeg|png|webp|avif)$/.test(file.type) || !window.createImageBitmap) return Promise.resolve(file);
+  /* Images over 400 KB are converted in the browser to WebP (transparency kept), longest side 2400px, smaller again
+     if needed to stay under the upload limit. If the result is not smaller, the original is uploaded as it is. */
+  if (file.size <= SHRINK_OVER || !/^image\/(jpeg|png|webp|avif)$/.test(file.type) || !window.createImageBitmap) return Promise.resolve(file);
   return createImageBitmap(file).then(function (bmp) {
-    var tries = [[2560, 0.9], [2048, 0.86], [1600, 0.82]];
+    var tries = [[2400, 0.86], [2048, 0.84], [1600, 0.82]];
     function attempt(n) {
       var t = tries[n], k = Math.min(1, t[0] / Math.max(bmp.width, bmp.height)), c = document.createElement('canvas');
       c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k); c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
       return new Promise(function (ok) { c.toBlob(ok, 'image/webp', t[1]); }).then(function (b) {
         if (!b || b.type !== 'image/webp') return new Promise(function (ok) { c.toBlob(ok, file.type === 'image/png' ? 'image/png' : 'image/jpeg', t[1]); });
         return b;
-      }).then(function (b) { if (b.size <= UPLOAD_MAX || n === tries.length - 1) return new File([b], file.name, { type: b.type }); return attempt(n + 1); });
+      }).then(function (b) {
+        if (b.size >= file.size && file.size <= UPLOAD_MAX) return file;   /* no gain: keep the original */
+        if (b.size <= UPLOAD_MAX || n === tries.length - 1) return new File([b], file.name.replace(/\.[a-z0-9]+$/i, '') + (b.type === 'image/webp' ? '.webp' : ''), { type: b.type });
+        return attempt(n + 1);
+      });
     }
     return attempt(0);
   });

@@ -45,7 +45,7 @@ window.SITE = {
       "link": "",
       "featured": true,
       "feature": "images/work/grey/offgrid.png",
-      "featureColor": "images/work/colour/offgrid.png",
+      "featureColor": "",
       "featureFade": true,
       "visible": true,
       "caseStudy": null
@@ -79,7 +79,7 @@ window.SITE = {
       "link": "",
       "featured": true,
       "feature": "images/work/grey/amg.png",
-      "featureColor": "images/work/colour/amg.png",
+      "featureColor": "",
       "featureFade": true,
       "visible": true,
       "caseStudy": null
@@ -96,7 +96,7 @@ window.SITE = {
       "link": "",
       "featured": true,
       "feature": "images/work/grey/nord.png",
-      "featureColor": "images/work/colour/nord.png",
+      "featureColor": "",
       "featureFade": true,
       "visible": true,
       "caseStudy": null
@@ -113,7 +113,7 @@ window.SITE = {
       "link": "",
       "featured": true,
       "feature": "images/work/grey/arcs.png",
-      "featureColor": "images/work/colour/arcs.png",
+      "featureColor": "",
       "featureFade": true,
       "visible": true,
       "caseStudy": {
@@ -232,7 +232,7 @@ window.SITE = {
       "link": "",
       "featured": true,
       "feature": "images/work/grey/keyboard.png",
-      "featureColor": "images/work/colour/keyboard.png",
+      "featureColor": "",
       "featureFade": false,
       "visible": true,
       "caseStudy": null

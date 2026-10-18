@@ -26,10 +26,12 @@ let HERO = SITE.hero;
         so every side changes every 20 seconds, one after the other. Waiting images sit fully behind the divider. */
 function buildStack(el, list) {
   el.textContent = '';
-  list.forEach(function (im) {
+  list.forEach(function (im, n) {
     var w = document.createElement('div'); w.className = 'hiw';
     /* alt comes from the image's Description in the dashboard; without one, its caption describes it */
-    var i = document.createElement('img'); i.className = 'hi'; i.src = im.src; i.alt = im.alt || im.caption || '';
+    var i = document.createElement('img'); i.className = 'hi'; i.alt = im.alt || im.caption || ''; i.decoding = 'async';
+    /* only the first image of each side loads straight away; the ones waiting behind the divider load once the page has finished */
+    if (n === 0 || heroReady) i.src = im.src; else i.setAttribute('data-src', im.src);
     i.style.left = (im.x || 0) + '%'; i.style.top = (im.y || 0) + '%'; i.style.width = (im.w == null ? 100 : im.w) + '%';
     w.appendChild(i); el.appendChild(w);
   });
@@ -37,10 +39,15 @@ function buildStack(el, list) {
 function showStack(el, list, active, left) {
   Array.prototype.forEach.call(el.children, function (w, n) {
     var im = list[n], x = im.x || 0, ww = im.w == null ? 100 : im.w, T = left ? 102 - x : x + ww + 2;
+    if (n === active) loadHi(w.firstChild);
     w.style.transform = n === active ? 'none' : 'translateX(' + (left ? '' : '-') + T + '%)';
     w.setAttribute('aria-hidden', n === active ? 'false' : 'true');   /* screen readers only hear the image on show */
   });
 }
+function loadHi(i) { var u = i && i.getAttribute('data-src'); if (u) { i.src = u; i.removeAttribute('data-src'); } }
+var heroReady = false;
+function heroRest() { heroReady = true; document.querySelectorAll('.hi[data-src]').forEach(loadHi); }
+if (document.readyState === 'complete') heroRest(); else window.addEventListener('load', heroRest);
 var heroStep = 0;
 function heroRender() {
   var nL = HERO.viz.length, nR = HERO.id.length;
@@ -52,9 +59,11 @@ function heroRender() {
 
 /* ---- The editable parts of the page: hero, About, skills, How I work, Book a call ---- */
 function cellList(box, items) { box.textContent = ''; (items || []).forEach(function (t) { var c = document.createElement('div'); c.className = 'cell'; c.textContent = t; box.appendChild(c); }); }
-function applyHome(h) {
+function applyHero(h) {
   HERO = { viz: (h.hero && h.hero.viz) || [], id: (h.hero && h.hero.id) || [] };
   buildStack($('stackL'), HERO.viz); buildStack($('stackR'), HERO.id); heroRender();
+}
+function applyHome(h) {
   /* the home page keeps the first two sentences; the full text is on /about */
   $('about').textContent = (String(h.about || '').match(/[^.!?]+[.!?]+/g) || [h.about || '']).slice(0, 2).join('').trim();
   if (h.portrait && h.portrait.src) { $('portrait').src = h.portrait.src; $('portrait').alt = h.portrait.alt || 'Portrait of Freddie Cooper'; }
@@ -85,10 +94,16 @@ function marquee(list) {
   var f = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit' });
   function tick() { c.textContent = f.format(new Date()) + ' WAT'; } tick(); setInterval(tick, 30000);
 })();
-var homeShown = '';
-function showHome(h) { var k = JSON.stringify(h); if (k === homeShown) return; homeShown = k; applyHome(h); }
-showHome(siteHome(null));
-loadHome().then(showHome);
+var homeShown = '', heroShown = '';
+function showHome(h, withHero) {
+  if (withHero) { var hk = JSON.stringify(h.hero); if (hk !== heroShown) { heroShown = hk; applyHero(h); } }
+  var k = JSON.stringify(h); if (k === homeShown) return; homeShown = k; applyHome(h);
+}
+showHome(siteHome(null), false);
+/* The hero waits for the images saved in the dashboard rather than downloading the built-in ones first and
+   swapping. If the saved data has not arrived after 2 seconds, it shows the built-in ones (js/content.js). */
+var heroFallback = setTimeout(function () { showHome(siteHome(null), true); }, 2000);
+loadHome().then(function (h) { clearTimeout(heroFallback); showHome(h, true); });
 if (!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) setInterval(function () { heroStep++; heroRender(); }, 10000);
 
 /* ---- Divider slider. Right end: product visualization only. Left end: industrial design only. ---- */
@@ -119,7 +134,7 @@ function renderFeatured(list) {
   FEATURED.forEach(function (p, i) {
     var href = projectHref(p) || '/work', a = document.createElement('a'); a.className = 'wp'; a.href = href; a.setAttribute('data-zone', p.kind);
     var ph = document.createElement('span'); ph.className = 'ph' + (p.featureFade === false ? '' : ' fd');
-    var im = document.createElement('img'); im.src = p.feature; im.alt = p.alt || (p.name + ' render'); ph.appendChild(im); colourLayer(ph, p.featureColor);
+    var im = document.createElement('img'); im.loading = 'lazy'; im.decoding = 'async'; im.setAttribute('fetchpriority', 'low'); im.src = p.feature; im.alt = p.alt || (p.name + ' render'); ph.appendChild(im); colourLayer(ph, p.featureColor);
     var l = document.createElement('span'); l.className = 'lbl wl'; l.textContent = (i < 9 ? '0' : '') + (i + 1) + ' ' + p.name;
     a.appendChild(ph); a.appendChild(l); g.appendChild(a);
   });
