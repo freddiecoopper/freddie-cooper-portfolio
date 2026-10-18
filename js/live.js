@@ -6,7 +6,7 @@ function loadProjects() { return getJSON('/api/projects').then(function (j) { re
 function projectHref(p) { return p.slug ? '/work/' + p.slug : p.caseStudy && p.caseStudy.on !== false ? '/case-study?p=' + encodeURIComponent(p.id) : (p.link || ''); }
 /* Thumbnails show the grey image and fade to the colour version on hover. A missing colour file is dropped, so it stays grey. */
 function colourLayer(box, src) {
-  if (!src) return; var c = document.createElement('img'); c.className = 'clr'; c.alt = ''; c.setAttribute('aria-hidden', 'true');
+  if (!src) return; var c = document.createElement('img'); c.className = 'clr'; c.alt = ''; c.setAttribute('aria-hidden', 'true'); c.loading = 'lazy'; c.decoding = 'async';   /* only needed on hover */
   c.addEventListener('error', function () { c.remove(); }); c.src = src; box.appendChild(c);
 }
 /* Home page content: the copy saved in the dashboard, laid over the built in one from js/content.js. */
